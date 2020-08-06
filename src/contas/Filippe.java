@@ -1,4 +1,4 @@
-package src.contas;
+package contas;
 
 public class Filippe {
 
