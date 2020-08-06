@@ -1,9 +1,0 @@
-<<<<<<< Updated upstream
-=======
-AbstractTextEditor.Color.Background.SystemDefault=false
-AbstractTextEditor.Color.SelectionBackground.SystemDefault=false
-AbstractTextEditor.Color.SelectionForeground.SystemDefault=false
-STS4BootMarkerIndicationColor=54,81,25
->>>>>>> Stashed changes
-eclipse.preferences.version=1
-overviewRuler_migration=migrated_3.1
