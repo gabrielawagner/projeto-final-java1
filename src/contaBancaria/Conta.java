@@ -5,6 +5,7 @@ public abstract class Conta {
 	private int agencia;
 	private String cpfTitular;
 	private double saldo;
+	private String tipoConta;
 	
 	
 	public Conta() {
@@ -18,6 +19,16 @@ public abstract class Conta {
 		this.cpfTitular = cpfTitular;
 		this.saldo = saldo;
 	}
+	
+	
+	public abstract boolean sacar(double valor);
+			
+	public abstract boolean transfere(Conta destino, double valor);
+		
+	public abstract void depositar(double valor);
+	
+	public abstract void depositarDeTransferencia(double valor);
+	
 	
 	public int getAgencia() {
 		return agencia;
@@ -36,6 +47,14 @@ public abstract class Conta {
 	}
 	public void setSaldo(double saldo) {
 		this.saldo = saldo;
+	}
+
+	public String getTipoConta() {
+		return tipoConta;
+	}
+
+	public void setTipoConta(String tipoConta) {
+		this.tipoConta = tipoConta;
 	}
 	
 	
