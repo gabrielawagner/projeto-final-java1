@@ -8,12 +8,9 @@ public abstract class Funcionario {
 	
 	
 	public Funcionario() {
-		super();
-		
 	}
 	
 	public Funcionario(String cpf, String senha, String cargo) {
-		super();
 		this.cpf = cpf;
 		this.senha = senha;
 		this.cargo = cargo;

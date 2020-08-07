@@ -3,11 +3,9 @@ package pessoal;
 public class Gerente extends Funcionario {
 	
 	private int agencia;
-
 	
-	public Gerente() {
-		super();
-		
+	public Gerente(String cpf, String senha, String cargo) {
+		super(cpf, senha, cargo);
 	}
 
 	public Gerente(String cpf, String senha, String cargo, int agencia) {

@@ -1,5 +1,11 @@
 package pessoal;
 
-public class Presidente {
+public class Presidente extends Diretor {
+	public Presidente(String cpf, String senha, String cargo) {
+		super(cpf, senha, cargo);
+	}
 
+	public Presidente(String cpf, String senha, String cargo, int agencia) {
+		super(cpf, senha, cargo, agencia);
+	}
 }
