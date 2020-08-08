@@ -5,8 +5,10 @@ import java.util.Scanner;
 
 import br.com.serratec.javaFinal.contaBancaria.ContaCorrente;
 import br.com.serratec.javaFinal.contaBancaria.ContaPoupanca;
+import br.com.serratec.javaFinal.contaBancaria.SeguroVida;
 import br.com.serratec.javaFinal.contaBancaria.Tributos;
 import br.com.serratec.javaFinal.pessoal.Funcionario;
+import br.com.serratec.javaFinal.usuarios.Usuario;
 
 public class Menu {
 	Scanner input = new Scanner(System.in);
@@ -16,18 +18,18 @@ public class Menu {
 	// TODO Perguntar ao marcelo como resolver a navegação do menu bug ao gerar
 	// relatorio.
 
-	public void cliente(Funcionario f) {
+	public void cliente(Usuario g) {
 		boolean sair = false;
 
 		System.out.println("Bem vindo escolha: [1]Movimentações ou [2]Relatórios");
 		int resposta = input.nextInt();
 		switch (resposta) {
 		case 1:
-			movimentacoesConta(f);
+			movimentacoesConta(g);
 			break;
 		case 2:
 			System.out.println(
-					"[1]-Saldo [2]-Tributação da conta corrente [3]-Simulador Poupança [4]-Voltar [5]-Finalizar ");
+					"[1]-Saldo [2]-Tributação da conta corrente [3]-Simulador Poupança [4]-Voltar [5]-Finalizar [6]-Contratar seguro de vida");
 			int resposta2 = input.nextInt();
 			switch (resposta2) {
 			case 1:
@@ -52,25 +54,29 @@ public class Menu {
 				System.out.println("Seu rendimento foi: " + (valor * (dias * rendimentoDiario) / 100));
 				break;
 			case 4:
-				cliente(f);
+				cliente(g);
 				break;
 			case 5:
 				sair = true;
+				break;
+			case 6:
+				SeguroVida s = new SeguroVida();
+				s.contrataSeguro(g, cc);
 				break;
 			}
 		}
 	}
 
-	public void principal(Funcionario f) {
-		String tipo = f.getCargo();
+	public void principal(Usuario g) {
+		String tipo = g.getCargo();
 		switch (tipo) {
 		case ("Cliente"):
-			cliente(f);
+			cliente(g);
 			break;
 		}
 	}
 
-	public void movimentacoesConta(Funcionario f) {
+	public void movimentacoesConta(Usuario g) {
 		boolean sair = false;
 		do {
 			System.out.println("\nDigite: \n[1]Saque [2]Depósito [3]Transferência [4]Voltar [5]Finalizar");
@@ -99,7 +105,7 @@ public class Menu {
 				cc.transfere(cc2, valorTransferencia);
 				break;
 			case 4:
-				principal(f);
+				principal(g);
 				break;
 			case 5:
 				sair = true;

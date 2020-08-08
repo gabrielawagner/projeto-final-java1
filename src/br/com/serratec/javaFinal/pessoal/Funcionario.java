@@ -1,10 +1,11 @@
 package br.com.serratec.javaFinal.pessoal;
 
-public abstract class Funcionario {
+import br.com.serratec.javaFinal.usuarios.Usuario;
+
+public abstract class Funcionario extends Usuario {
 
 	private String cpf;
 	private String senha;
-	private String cargo;
 
 	public Funcionario() {
 	}
@@ -12,7 +13,6 @@ public abstract class Funcionario {
 	public Funcionario(String cpf, String senha, String cargo) {
 		this.cpf = cpf;
 		this.senha = senha;
-		this.cargo = cargo;
 	}
 
 	public String getCpf() {
@@ -31,12 +31,5 @@ public abstract class Funcionario {
 		this.senha = senha;
 	}
 
-	public String getCargo() {
-		return cargo;
-	}
-
-	public void setCargo(String cargo) {
-		this.cargo = cargo;
-	}
 
 }

@@ -1,23 +1,11 @@
 package br.com.serratec.javaFinal.usuarios;
 
-public class Cliente {
-	
-	private String cpf;
-	private String senha;
-	
-	public String getCpf() {
-		return cpf;
+public class Cliente extends Usuario {
+
+	public Cliente(String nome, String cpf, String senha, boolean temSeguro, String cargo) {
+		super(nome, cpf, senha, temSeguro, cargo);
+		// TODO Auto-generated constructor stub
 	}
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-	public String getSenha() {
-		return senha;
-	}
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-	
 	
 	
 
