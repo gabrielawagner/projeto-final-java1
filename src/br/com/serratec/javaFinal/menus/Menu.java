@@ -25,17 +25,23 @@ public class Menu {
 				resposta2 = input.nextInt();
 				switch (resposta2) {
 				case 1:
-					System.out.println("Qual o valor do saque?");
+					System.out.println("--------------------Saque-------------------");
+					System.out.println("Qual o valor a ser sacado?");
+					System.out.println("--------------------------------------------");
 					double valorSaque = input.nextDouble();
 					cc.sacar(valorSaque);
 					break;
 				case 2:
-					System.out.println("Qual o valor do deposito?");
+					System.out.println("------------------Deposito-------------------");
+					System.out.println("Qual o valor a ser depositado?");
+					System.out.println("---------------------------------------------");
 					double valorDeposito = input.nextDouble();
 					cc.depositar(valorDeposito);
 					break;
 				case 3:
-					System.out.println("Qual o valor do deposito?");
+					System.out.println("------------------Transferencia--------------");
+					System.out.println("Digite o valor a ser transferido:");
+					System.out.println("---------------------------------------------");
 					double valorTransferencia = input.nextDouble();
 					cc.transfere(cc2, valorTransferencia);
 					break;
