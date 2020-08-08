@@ -1,4 +1,4 @@
-package contaBancaria;
+package src.contaBancaria;
 
 public interface Tributos {
 

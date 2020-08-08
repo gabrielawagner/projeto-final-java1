@@ -1,15 +1,13 @@
-package contaBancaria;
+package src.contaBancaria;
 
-public class ContaPoupanca extends Conta implements Tributos{
+public class ContaCorrente extends Conta implements Tributos{
 	
-	private final double rendimento = 0.5;
-		
-	public ContaPoupanca() {
+	public ContaCorrente() {
 		super();
 		
 	}
 
-	public ContaPoupanca(int agencia, String cpfTitular, double saldo) {
+	public ContaCorrente(int agencia, String cpfTitular, double saldo) {
 		super(agencia, cpfTitular, saldo);
 		
 	}
@@ -43,10 +41,9 @@ public class ContaPoupanca extends Conta implements Tributos{
 	
 	public void depositarDeTransferencia(double valor) {
 		this.setSaldo(this.getSaldo() + valor);
+	
 	}
 	
-	public double getRendimento() {
-		return rendimento;
-	}
+		
 	
 }
