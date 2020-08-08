@@ -1,6 +1,6 @@
-package usuarios;
+package br.com.serratec.javaFinal.usuarios;
 
-public class cliente {
+public class Cliente {
 	
 	private String cpf;
 	private String senha;

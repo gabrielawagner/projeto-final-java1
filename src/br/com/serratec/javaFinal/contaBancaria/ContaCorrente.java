@@ -1,10 +1,9 @@
-package src.contaBancaria;
+package br.com.serratec.javaFinal.contaBancaria;
 
 public class ContaCorrente extends Conta implements Tributos {
 
 	public ContaCorrente() {
 		super();
-
 	}
 
 	public ContaCorrente(int agencia, String cpfTitular, double saldo) {
@@ -20,7 +19,7 @@ public class ContaCorrente extends Conta implements Tributos {
 			double novoSaldo = this.getSaldo() - valor - saqueTributo;
 			System.out.println("Valor debitado da sua conta: " + (valor + saqueTributo));
 			this.setSaldo(novoSaldo);
-			System.out.println("Saldo disponivel: " +this.getSaldo());
+			System.out.println("Saldo disponivel: " + this.getSaldo());
 			return true;
 		}
 	}
@@ -36,6 +35,8 @@ public class ContaCorrente extends Conta implements Tributos {
 	}
 
 	public void depositar(double valor) {
+		System.out.println("Valor depositado: " + valor);
+		System.out.println("Novo saldo: " + (this.getSaldo() + valor - depositoTributo));
 		this.setSaldo(this.getSaldo() + valor - depositoTributo);
 	}
 

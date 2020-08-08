@@ -1,4 +1,4 @@
-package pessoal;
+package br.com.serratec.javaFinal.pessoal;
 
 public abstract class Funcionario {
 

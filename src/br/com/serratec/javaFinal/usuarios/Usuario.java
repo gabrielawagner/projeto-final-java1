@@ -1,6 +1,6 @@
-package usuarios;
+package br.com.serratec.javaFinal.usuarios;
 
-public abstract class usuario {
+public abstract class Usuario {
 	
 	private String nome;
 	private String cpf;

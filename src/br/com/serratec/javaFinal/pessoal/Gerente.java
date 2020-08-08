@@ -1,4 +1,4 @@
-package pessoal;
+package br.com.serratec.javaFinal.pessoal;
 
 public class Gerente extends Funcionario {
 	

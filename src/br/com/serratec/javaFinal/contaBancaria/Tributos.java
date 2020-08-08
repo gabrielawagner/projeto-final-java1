@@ -1,4 +1,4 @@
-package src.contaBancaria;
+package br.com.serratec.javaFinal.contaBancaria;
 
 public interface Tributos {
 

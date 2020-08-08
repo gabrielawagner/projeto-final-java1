@@ -1,4 +1,4 @@
-package pessoal;
+package br.com.serratec.javaFinal.pessoal;
 
 public class Diretor extends Gerente {
 	public Diretor(String cpf, String senha, String cargo) {
