@@ -5,8 +5,8 @@ import java.util.Scanner;
 import src.contaBancaria.ContaCorrente;
 
 public class Login {
-	Scanner Input = new Scanner(System.in);
-	ContaCorrente i = new ContaCorrente(4, "123.456.789-10", 2400.0);
+	Scanner input = new Scanner(System.in);
+	ContaCorrente cc = new ContaCorrente(4, "123.456.789-10", 2000.0);
 
 	/*
 	 * String cpf, senha; System.out.println("CPF: "); cpf = Input.nextLine();
@@ -14,19 +14,17 @@ public class Login {
 	 */
 	public void LogCliente() {
 		System.out.println("Bem vindo ao banco X, por favor, Insira [1]Movimentações" + " ou [2]Relatórios");
-		int resposta;
-		resposta = Input.nextInt();
+		int resposta = input.nextInt();
 		switch (resposta) {
 		case 1:
 			System.out.println("Digite [1]Saque \n[2]Depósito \n[3]Transferência");
 			int resposta2;
-			resposta2 = Input.nextInt();
+			resposta2 = input.nextInt();
 			switch (resposta2) {
 			case 1:
 				System.out.println("Qual o valor do saque?");
-				double valorSaque;
-				valorSaque = Input.nextDouble();
-				i.sacar(valorSaque);
+				double valorSaque = input.nextDouble();
+				cc.sacar(valorSaque);
 
 				break;
 			case 2:
