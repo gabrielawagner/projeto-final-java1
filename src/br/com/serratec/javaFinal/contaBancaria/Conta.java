@@ -6,6 +6,7 @@ public abstract class Conta {
 	private String cpfTitular;
 	private double saldo;
 	private String tipoConta;
+	private int quantidadeTranferencia, quantidadeSaque, quantidadeDeposito;
 
 	public Conta() {
 		super();
@@ -57,6 +58,44 @@ public abstract class Conta {
 
 	public void setTipoConta(String tipoConta) {
 		this.tipoConta = tipoConta;
+	}
+	
+	public int getQuantidadeTranferencia() {
+		return quantidadeTranferencia;
+	}
+
+	public void setQuantidadeTranferencia(int quantidadeTranferencia) {
+		this.quantidadeTranferencia = quantidadeTranferencia;
+	}
+
+	public int getQuantidadeSaque() {
+		return quantidadeSaque;
+	}
+
+	public void setQuantidadeSaque(int quantidadeSaque) {
+		this.quantidadeSaque = quantidadeSaque;
+	}
+
+	public int getQuantidadeDeposito() {
+		return quantidadeDeposito;
+	}
+
+	public void setQuantidadeDeposito(int quantidadeDeposito) {
+		this.quantidadeDeposito = quantidadeDeposito;
+	}
+
+	public void executaOperacao(String tipo) {
+		switch (tipo) {
+		case "depositar": 
+			quantidadeDeposito++;
+			break;
+		case "transfere": 
+			quantidadeTranferencia++;
+			break;
+		case "sacar": 
+			quantidadeSaque++;
+			break;
+		}
 	}
 
 }
