@@ -1,4 +1,4 @@
-package br.com.serratec.javaFinal.pessoal;
+package br.com.serratec.javaFinal.usuarios.pessoal;
 
 import br.com.serratec.javaFinal.usuarios.Usuario;
 

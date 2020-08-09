@@ -1,12 +1,9 @@
 package br.com.serratec.javaFinal;
 
 import br.com.serratec.javaFinal.menus.Menu;
-import br.com.serratec.javaFinal.pessoal.Gerente;
 import br.com.serratec.javaFinal.usuarios.Cliente;
-import br.com.serratec.javaFinal.usuarios.Usuario;
 
 public class SistemaInterno {
-
 	public static void main(String[] args) {
 		Cliente c = new Cliente("Eclipse","111.222.333-44", "Banana", false, "Cliente");
 		Menu menu = new Menu();
@@ -20,6 +17,7 @@ public class SistemaInterno {
 //		default:
 //			throw new IllegalArgumentException("Unexpected value: ");
 //		}
+		
 		menu.principal(c);
 	}
 

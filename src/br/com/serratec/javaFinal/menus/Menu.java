@@ -1,13 +1,11 @@
 package br.com.serratec.javaFinal.menus;
 
-import java.time.LocalDate;
 import java.util.Scanner;
 
 import br.com.serratec.javaFinal.contaBancaria.ContaCorrente;
 import br.com.serratec.javaFinal.contaBancaria.ContaPoupanca;
 import br.com.serratec.javaFinal.contaBancaria.SeguroVida;
 import br.com.serratec.javaFinal.contaBancaria.Tributos;
-import br.com.serratec.javaFinal.pessoal.Funcionario;
 import br.com.serratec.javaFinal.usuarios.Usuario;
 
 public class Menu {
@@ -15,21 +13,18 @@ public class Menu {
 	ContaCorrente cc = new ContaCorrente(4, "123.456.789-10", 2000.0);
 	ContaCorrente cc2 = new ContaCorrente(1, "123.456.789-10", 2000.0);
 	ContaPoupanca cp = new ContaPoupanca(1, "123.456.789-10", 2000.0);
-	// TODO Perguntar ao marcelo como resolver a navegação do menu bug ao gerar
-	// relatorio.
+	// TODO Perguntar ao marcelo como resolver a navegação do menu bug ao gerar relatorio.
 
-	public void cliente(Usuario g) {
-		boolean sair = false;
+	public void cliente(Usuario usuario) {
 
 		System.out.println("Bem vindo escolha: [1]Movimentações ou [2]Relatórios");
 		int resposta = input.nextInt();
 		switch (resposta) {
 		case 1:
-			movimentacoesConta(g);
+			movimentacoesConta(usuario);
 			break;
 		case 2:
-			System.out.println(
-					"[1]-Saldo [2]-Tributação da conta corrente [3]-Simulador Poupança [4]-Voltar [5]-Finalizar [6]-Contratar seguro de vida");
+			System.out.println("[1]-Saldo [2]-Tributação da conta corrente [3]-Simulador Poupança [4]-Contratar seguro de vida [5]-Voltar [6]-Finalizar");
 			int resposta2 = input.nextInt();
 			switch (resposta2) {
 			case 1:
@@ -54,29 +49,28 @@ public class Menu {
 				System.out.println("Seu rendimento foi: " + (valor * (dias * rendimentoDiario) / 100));
 				break;
 			case 4:
-				cliente(g);
+				cliente(usuario);
 				break;
 			case 5:
-				sair = true;
 				break;
 			case 6:
 				SeguroVida s = new SeguroVida();
-				s.contrataSeguro(g, cc);
+				s.contrataSeguro(usuario, cc);
 				break;
 			}
 		}
 	}
 
-	public void principal(Usuario g) {
-		String tipo = g.getCargo();
+	public void principal(Usuario usuario) {
+		String tipo = usuario.getCargo();
 		switch (tipo) {
 		case ("Cliente"):
-			cliente(g);
+			cliente(usuario);
 			break;
 		}
 	}
 
-	public void movimentacoesConta(Usuario g) {
+	public void movimentacoesConta(Usuario usuario) {
 		boolean sair = false;
 		do {
 			System.out.println("\nDigite: \n[1]Saque [2]Depósito [3]Transferência [4]Voltar [5]Finalizar");
@@ -105,7 +99,7 @@ public class Menu {
 				cc.transfere(cc2, valorTransferencia);
 				break;
 			case 4:
-				principal(g);
+				principal(usuario);
 				break;
 			case 5:
 				sair = true;
