@@ -16,6 +16,7 @@ public class SeguroVida {
 		u.setTemSeguro(true);
 		conta.setSaldo(conta.getSaldo() - valorSeguro*Tributos.seguroTributo);
 		System.out.println("Novo saldo: " + conta.getSaldo());
+		input.close();
 	}
 
 }

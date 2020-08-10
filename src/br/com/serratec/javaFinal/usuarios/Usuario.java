@@ -5,15 +5,27 @@ public abstract class Usuario {
 	private String nome;
 	private String cpf;
 	private String senha;
-	private boolean temSeguro;
-	private String cargo;
+	private String tipo;
+	private boolean temSeguro = false;
 
-	public String getCargo() {
-		return cargo;
+	public Usuario(String nome, String cpf, String senha, String tipo) {
+		super();
+		this.nome = nome;
+		this.cpf = cpf;
+		this.senha = senha;
+		this.tipo = tipo;
 	}
 
-	public void setCargo(String cargo) {
-		this.cargo = cargo;
+	public Usuario() {
+		super();
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 	public boolean isTemSeguro() {
@@ -46,19 +58,6 @@ public abstract class Usuario {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
-	}
-
-	public Usuario(String nome, String cpf, String senha, boolean temSeguro, String cargo) {
-		super();
-		this.nome = nome;
-		this.cpf = cpf;
-		this.senha = senha;
-		this.temSeguro = temSeguro;
-		this.cargo = cargo;
-	}
-
-	public Usuario() {
-		super();
 	}
 
 }

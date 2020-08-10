@@ -1,5 +1,6 @@
 package br.com.serratec.javaFinal.menus;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 import br.com.serratec.javaFinal.contaBancaria.ContaCorrente;
@@ -7,18 +8,24 @@ import br.com.serratec.javaFinal.contaBancaria.ContaPoupanca;
 import br.com.serratec.javaFinal.contaBancaria.SeguroVida;
 import br.com.serratec.javaFinal.contaBancaria.Tributos;
 import br.com.serratec.javaFinal.usuarios.Usuario;
+import br.com.serratec.javaFinal.utils.LimpaTela;
 
 public class Menu {
+	Usuario usuario;
 	Scanner input = new Scanner(System.in);
 	ContaCorrente cc = new ContaCorrente(4, "123.456.789-10", 2000.0);
 	ContaCorrente cc2 = new ContaCorrente(1, "123.456.789-10", 2000.0);
 	ContaPoupanca cp = new ContaPoupanca(1, "123.456.789-10", 2000.0);
-	// TODO Perguntar ao marcelo como resolver a navegação do menu bug ao gerar relatorio.
 
-	public void cliente(Usuario usuario) {
+	public Menu(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public void cliente(Usuario usuario) throws IOException {
 
 		System.out.println("Bem vindo escolha: [1]Movimentações ou [2]Relatórios");
 		int resposta = input.nextInt();
+		LimpaTela.clearConsole();
 		switch (resposta) {
 		case 1:
 			movimentacoesConta(usuario);
@@ -61,16 +68,16 @@ public class Menu {
 		}
 	}
 
-	public void principal(Usuario usuario) {
-		String tipo = usuario.getCargo();
+	public void principal(Usuario usuario) throws IOException {
+		String tipo = usuario.getTipo();
 		switch (tipo) {
-		case ("Cliente"):
+		case ("cliente"):
 			cliente(usuario);
 			break;
 		}
 	}
 
-	public void movimentacoesConta(Usuario usuario) {
+	public void movimentacoesConta(Usuario usuario) throws IOException {
 		boolean sair = false;
 		do {
 			System.out.println("\nDigite: \n[1]Saque [2]Depósito [3]Transferência [4]Voltar [5]Finalizar");
