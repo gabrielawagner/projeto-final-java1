@@ -1,0 +1,10 @@
+nome,1,senha,CLIENTE,agencia
+nome,2,senha,GERENTE,agencia
+nome,3,senha,CLIENTE,agencia
+nome,4,senha,GERENTE,agencia
+nome,5,senha,GERENTE,agencia
+nome,6,senha,PRESIDENTE,agencia
+nome,7,senha,GERENTE,agencia
+nome,8,senha,DIRETOR,agencia
+nome,9,senha,DIRETOR,agencia
+nome,10,senha,GERENTE,agencia

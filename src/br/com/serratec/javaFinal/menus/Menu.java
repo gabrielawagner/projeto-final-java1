@@ -3,7 +3,7 @@ package br.com.serratec.javaFinal.menus;
 import java.io.IOException;
 import java.util.Scanner;
 
-import br.com.serratec.javaFinal.contaBancaria.ContaCorrente;
+import br.com.serratec.javaFinal.contaBancaria.Conta;
 import br.com.serratec.javaFinal.contaBancaria.ContaPoupanca;
 import br.com.serratec.javaFinal.contaBancaria.SeguroVida;
 import br.com.serratec.javaFinal.contaBancaria.Tributos;
@@ -12,13 +12,13 @@ import br.com.serratec.javaFinal.utils.LimpaTela;
 
 public class Menu {
 	Usuario usuario;
+	Conta conta;
 	Scanner input = new Scanner(System.in);
-	ContaCorrente cc = new ContaCorrente(4, "123.456.789-10", 2000.0);
-	ContaCorrente cc2 = new ContaCorrente(1, "123.456.789-10", 2000.0);
-	ContaPoupanca cp = new ContaPoupanca(1, "123.456.789-10", 2000.0);
-
-	public Menu(Usuario usuario) {
+	ContaPoupanca cp = new ContaPoupanca(0, "15050", 2500);
+	
+	public Menu(Usuario usuario, Conta conta) {
 		this.usuario = usuario;
+		this.conta = conta;
 	}
 
 	public void cliente(Usuario usuario) throws IOException {
@@ -28,43 +28,14 @@ public class Menu {
 		LimpaTela.clearConsole();
 		switch (resposta) {
 		case 1:
-			movimentacoesConta(usuario);
+			movimentacoes(usuario);
 			break;
 		case 2:
-			System.out.println("[1]-Saldo [2]-Tributação da conta corrente [3]-Simulador Poupança [4]-Contratar seguro de vida [5]-Voltar [6]-Finalizar");
-			int resposta2 = input.nextInt();
-			switch (resposta2) {
-			case 1:
-				System.out.print("SALDO: ");
-				System.out.println(cc.getSaldo());
-				break;
-			case 2:
-				System.out.println("Tributação Total da Conta Corrente: ");
-				double tributoDeposito = (cc.getQuantidadeDeposito() * Tributos.depositoTributo);
-				double tributoSaque = (cc.getQuantidadeSaque() * Tributos.saqueTributo);
-				double tributoTransferencia = (cc.getQuantidadeTranferencia() * Tributos.transferenciaTributo);
-				System.out.println(tributoDeposito + tributoSaque + tributoTransferencia);
-				break;
-			case 3:
-				// TODO Metodo de calcular apartir da data inserida
-				System.out.println("Simulador de Rendimento da Poupança: ");
-				System.out.print("Valor: ");
-				double valor = input.nextDouble();
-				System.out.print("Quantidade de dias: ");
-				int dias = input.nextInt();
-				double rendimentoDiario = cp.getRendimento() / 30;
-				System.out.println("Seu rendimento foi: " + (valor * (dias * rendimentoDiario) / 100));
-				break;
-			case 4:
-				cliente(usuario);
-				break;
-			case 5:
-				break;
-			case 6:
-				SeguroVida s = new SeguroVida();
-				s.contrataSeguro(usuario, cc);
-				break;
-			}
+			relatorios(usuario);
+			break;
+		default:
+			System.out.println("Opção Invalida!");
+			cliente(usuario);
 		}
 	}
 
@@ -77,33 +48,82 @@ public class Menu {
 		}
 	}
 
-	public void movimentacoesConta(Usuario usuario) throws IOException {
+	public void relatorios(Usuario usuario) throws IOException {
+		System.out.println(
+				"[1]-Saldo [2]-Tributação da conta corrente [3]-Simulador Poupança [4]-Contratar seguro de vida [5]-Voltar [6]-Finalizar");
+		int resposta2 = input.nextInt();
+		switch (resposta2) {
+		case 1:
+			LimpaTela.clearConsole();
+			System.out.print("SALDO: ");
+			System.out.println(conta.getSaldo());
+			System.out.println();
+			relatorios(usuario);
+			break;
+		case 2:
+			System.out.println("Tributação Total da Conta Corrente: ");
+			double tributoDeposito = (conta.getQuantidadeDeposito() * Tributos.depositoTributo);
+			double tributoSaque = (conta.getQuantidadeSaque() * Tributos.saqueTributo);
+			double tributoTransferencia = (conta.getQuantidadeTranferencia() * Tributos.transferenciaTributo);
+			LimpaTela.clearConsole();
+			System.out.println(tributoDeposito + tributoSaque + tributoTransferencia);
+			relatorios(usuario);
+			break;
+		case 3:
+			// TODO Metodo de calcular apartir da data inserida
+			System.out.println("Simulador de Rendimento da Poupança: ");
+			System.out.print("Valor: ");
+			double valor = input.nextDouble();
+			System.out.print("Quantidade de dias: ");
+			int dias = input.nextInt();
+			double rendimentoDiario = cp.getRendimento() / 30;
+			LimpaTela.clearConsole();
+			System.out.println("Seu rendimento foi: " + (valor * (dias * rendimentoDiario) / 100));
+			relatorios(usuario);
+			break;
+		case 4:
+			SeguroVida s = new SeguroVida();
+			resposta2 = s.contrataSeguro(usuario, conta);
+			break;
+		case 5:
+			cliente(usuario);
+			break;
+		case 6:
+			break;
+		}
+	}
+
+	public void movimentacoes(Usuario usuario) throws IOException {
 		boolean sair = false;
 		do {
 			System.out.println("\nDigite: \n[1]Saque [2]Depósito [3]Transferência [4]Voltar [5]Finalizar");
 			int resposta2;
 			resposta2 = input.nextInt();
+			LimpaTela.clearConsole();
 			switch (resposta2) {
 			case 1:
 				System.out.println("\n--------------------Saque-------------------");
 				System.out.println("-----------Qual o valor a ser sacado?-------");
 				System.out.println("--------------------------------------------");
 				double valorSaque = input.nextDouble();
-				cc.sacar(valorSaque);
+				LimpaTela.clearConsole();
+				conta.sacar(valorSaque);
 				break;
 			case 2:
 				System.out.println("\n------------------Deposito-------------------");
 				System.out.println("---------Qual o valor a ser depositado?------");
 				System.out.println("---------------------------------------------");
 				double valorDeposito = input.nextDouble();
-				cc.depositar(valorDeposito);
+				LimpaTela.clearConsole();
+				conta.depositar(valorDeposito);
 				break;
 			case 3:
 				System.out.println("\n------------------Transferencia--------------");
 				System.out.println("------Digite o valor a ser transferido:------");
 				System.out.println("---------------------------------------------");
 				double valorTransferencia = input.nextDouble();
-				cc.transfere(cc2, valorTransferencia);
+				LimpaTela.clearConsole();
+				conta.transfere(cp, valorTransferencia);
 				break;
 			case 4:
 				principal(usuario);

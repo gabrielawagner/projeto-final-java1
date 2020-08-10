@@ -1,11 +1,11 @@
 package br.com.serratec.javaFinal.usuarios.pessoal;
 
 public class Presidente extends Diretor {
-	public Presidente(String cpf, String senha, String cargo) {
-		super(cpf, senha, cargo);
+	public Presidente() {
+		super();
 	}
 
-	public Presidente(String cpf, String senha, String cargo, int agencia) {
-		super(cpf, senha, cargo, agencia);
+	public Presidente(String nome, String cpf, String senha, String tipo, String agencia) {
+		super(nome, cpf, senha, tipo, agencia);
 	}
 }

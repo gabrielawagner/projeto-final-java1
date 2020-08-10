@@ -1,28 +1,29 @@
 package br.com.serratec.javaFinal.usuarios.pessoal;
 
 public class Gerente extends Funcionario {
-	
-	private int agencia;
-	
-	public Gerente(String cpf, String senha, String cargo) {
-		super(cpf, senha, cargo);
+
+	private String agenciaResponsavel;
+
+	public Gerente() {
 	}
 
-	public Gerente(String cpf, String senha, String cargo, int agencia) {
-		super(cpf, senha, cargo);
-		this.agencia = agencia;
-	
+	public Gerente(String nome, String cpf, String senha, String tipo, String agencia) {
+		super(nome, cpf, senha, tipo);
+		this.agenciaResponsavel = agencia;
 	}
 
-	public int getAgencia() {
-		return agencia;
+	public String getAgencia() {
+		return agenciaResponsavel;
 	}
 
-	public void setAgencia(int agencia) {
-		this.agencia = agencia;
+	public void setAgencia(String agencia) {
+		this.agenciaResponsavel = agencia;
 	}
 	
-	
-	
+	@Override
+	public String toString() {
+		return "agencia: " + agenciaResponsavel + " Tipo: " + getTipo() + " Nome: " + getNome() + " Cpf: "
+				+ getCpf() + " Senha: " + getSenha();
+	}
 
 }
