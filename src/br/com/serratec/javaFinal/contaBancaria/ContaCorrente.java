@@ -6,27 +6,29 @@ public class ContaCorrente extends Conta implements Tributos {
 		super();
 	}
 
-	public ContaCorrente(int agencia, String cpfTitular, double saldo) {
-		super(agencia, cpfTitular, saldo);
+	public ContaCorrente(String agencia, String numero, String cpfTitular, double saldo) {
+		super(agencia, numero, cpfTitular, saldo);
 	}
 
+	@Override
 	public boolean sacar(double valor) {
-		if (this.getSaldo() < valor + saqueTributo) {
+		if (this.getSaldo() < valor + valorSaque) {
 			System.out.println("Saldo indisponivel!");
 			return false;
 		} else {
 			executaOperacao("sacar");
-			double novoSaldo = this.getSaldo() - valor - saqueTributo;
-			System.out.println("Valor debitado da sua conta: " + (valor + saqueTributo));
+			double novoSaldo = this.getSaldo() - valor - valorSaque;
+			System.out.println("Valor debitado da sua conta: " + (valor + valorSaque));
 			this.setSaldo(novoSaldo);
 			System.out.println("Saldo disponivel: " + this.getSaldo());
 			return true;
 		}
 	}
 
+	@Override
 	public boolean transfere(Conta destino, double valor) {
-		if (this.sacarTransferencia(valor + transferenciaTributo)) {
-			// TODO Implementar exceção
+		if (this.sacarTransferencia(valor + valorTransferencia)) {
+			//TODO Implementar exceção
 			executaOperacao("transfere");
 			destino.depositarDeTransferencia(valor);
 			return true;
@@ -35,13 +37,15 @@ public class ContaCorrente extends Conta implements Tributos {
 		}
 	}
 
+	@Override
 	public void depositar(double valor) {
 		System.out.println("Valor depositado: " + valor);
-		System.out.println("Novo saldo: " + (this.getSaldo() + valor - depositoTributo));
+		System.out.println("Novo saldo: " + (this.getSaldo() + valor - valorDeposito));
 		executaOperacao("depositar");
-		this.setSaldo(this.getSaldo() + valor - depositoTributo);
+		this.setSaldo(this.getSaldo() + valor - valorDeposito);
 	}
 
+	@Override
 	public void depositarDeTransferencia(double valor) {
 		this.setSaldo(this.getSaldo() + valor);
 	}

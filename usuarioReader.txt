@@ -1,10 +1,20 @@
-nome,1,senha,CLIENTE,1,2000,ContaCorrente,quantidadeTranferencia,quantidadeSaque,quantidadeDeposito
-nome,2,senha,GERENTE,agencia,saldo,tipoConta,quantidadeTranferencia,quantidadeSaque,quantidadeDeposito
-nome,3,senha,CLIENTE,agencia,saldo,tipoConta,quantidadeTranferencia,quantidadeSaque,quantidadeDeposito
-nome,4,senha,GERENTE,agencia,saldo,tipoConta,quantidadeTranferencia,quantidadeSaque,quantidadeDeposito
-nome,5,senha,GERENTE,agencia,saldo,tipoConta,quantidadeTranferencia,quantidadeSaque,quantidadeDeposito
-nome,6,senha,PRESIDENTE,agencia,saldo,tipoConta,quantidadeTranferencia,quantidadeSaque,quantidadeDeposito
-nome,7,senha,GERENTE,agencia,saldo,tipoConta,quantidadeTranferencia,quantidadeSaque,quantidadeDeposito
-nome,8,senha,DIRETOR,agencia,saldo,tipoConta,quantidadeTranferencia,quantidadeSaque,quantidadeDeposito
-nome,9,senha,DIRETOR,agencia,saldo,tipoConta,quantidadeTranferencia,quantidadeSaque,quantidadeDeposito
-nome,10,senha,GERENTE,agencia,saldo,tipoConta,quantidadeTranferencia,quantidadeSaque,quantidadeDeposito
+Gabrielly Alves Castro,1,senha,CLIENTE,1
+Luis Correia Gomes,2,senha,GERENTE,2
+Fernanda Goncalves Barbosa,3,senha,CLIENTE,1
+Ana Gomes Goncalves,4,senha,DIRETOR,1
+Carla Cardoso Castro,5,senha,GERENTE,1
+Giovana Carvalho Alves,6,senha,PRESIDENTE,1
+Marina Ribeiro Azevedo,7,senha,GERENTE,1
+Ana Barros Pinto,8,senha,DIRETOR,1
+Martim Sousa Pereira,9,senha,DIRETOR,2
+Júlia Correia Sousa,10,senha,GERENTE,1
+1,123,1,2000,CORRENTE
+1,1234,2,2000,CORRENTE
+2,123,3,2000,CORRENTE
+2,4422,4,2000,CORRENTE
+1,55231,5,2000,CORRENTE
+2,1241242,6,2000,CORRENTE
+1,55311,7,2000,CORRENTE
+2,5131352,8,2000,CORRENTE
+1,521251,9,2000,CORRENTE
+2,5211252,10,1000,POUPANCA

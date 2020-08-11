@@ -10,6 +10,8 @@ import java.util.Scanner;
 
 import br.com.serratec.javaFinal.contaBancaria.Conta;
 import br.com.serratec.javaFinal.contaBancaria.ContaCorrente;
+import br.com.serratec.javaFinal.contaBancaria.ContaPoupanca;
+import br.com.serratec.javaFinal.enums.TiposContas;
 import br.com.serratec.javaFinal.enums.TiposUsuarios;
 import br.com.serratec.javaFinal.usuarios.Cliente;
 import br.com.serratec.javaFinal.usuarios.Diretor;
@@ -19,42 +21,43 @@ import br.com.serratec.javaFinal.usuarios.Usuario;
 
 public class LerArquivo {
 
-	
-	public ArrayList<Usuario> carregaArrayUsuarios() throws IOException{
+	public void populaArrays(ArrayList<Usuario> usuarios, ArrayList<Conta> contas) throws IOException {
+
 		FileReader fr = new FileReader("./usuarioReader.txt");
 		BufferedReader buffRead = new BufferedReader(fr);
-		ArrayList<Usuario> lista = new ArrayList<>();
+
 		String linha = "";
-		Usuario usuario = null;
-		Conta conta = null;
-		
+
 		while (true) {
 			linha = buffRead.readLine();
 			if (linha != null) {
 				String[] split = linha.split(",");
 				if (split[3].equalsIgnoreCase(TiposUsuarios.CLIENTE.name())) {
-					usuario = new Cliente(split[0], split[1], split[2], split[3]);
-					if (split[6].equalsIgnoreCase("ContaCorrente")) {
-						conta = new ContaCorrente(Integer.parseInt(split[4]), split[1], Double.parseDouble(split[5]));
-					}
-					lista.add(usuario);
+					Cliente c = new Cliente(split[0], split[1], split[2], split[3], split[4]);
+					usuarios.add(c);
 				} else if (split[3].equalsIgnoreCase(TiposUsuarios.GERENTE.name())) {
-					usuario = new Gerente(split[0], split[1], split[2], split[3], split[4]);
-					lista.add(usuario);
+					Gerente g = new Gerente(split[0], split[1], split[2], split[3], split[4]);
+					usuarios.add(g);
 				} else if (split[3].equalsIgnoreCase(TiposUsuarios.DIRETOR.name())) {
-					usuario = new Diretor(split[0], split[1], split[2], split[3], split[4]);
-					lista.add(usuario);
-				}else if (split[3].equalsIgnoreCase(TiposUsuarios.PRESIDENTE.name())) {
-					usuario = new Presidente(split[0], split[1], split[2], split[3], split[4]);
-					lista.add(usuario);
+					Diretor d = new Diretor(split[0], split[1], split[2], split[3], split[4]);
+					usuarios.add(d);
+				} else if (split[3].equalsIgnoreCase(TiposUsuarios.PRESIDENTE.name())) {
+					Presidente p = new Presidente(split[0], split[1], split[2], split[3], split[4]);
+					usuarios.add(p);
+				} else if (split[4].equals(TiposContas.CORRENTE.name())) {
+					ContaCorrente cc = new ContaCorrente(split[0], split[1], split[2],
+							Double.parseDouble(split[3]));
+					contas.add(cc);
+				} else if (split[4].equals(TiposContas.POUPANCA.name())) {
+					ContaPoupanca cp = new ContaPoupanca(split[0], split[1], split[2], Double.parseDouble(split[3]));
+					contas.add(cp);
 				}
 			} else
 				break;
 		}
 		buffRead.close();
-		return lista;
 	}
-	
+
 	public static void escritor(String path) throws IOException {
 		BufferedWriter buffWrite = new BufferedWriter(new FileWriter(path));
 		String linha = "";
@@ -63,5 +66,6 @@ public class LerArquivo {
 		linha = in.nextLine();
 		buffWrite.append(linha + "\n");
 		buffWrite.close();
+		in.close();
 	}
 }

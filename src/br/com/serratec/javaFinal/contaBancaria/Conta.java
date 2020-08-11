@@ -2,20 +2,22 @@ package br.com.serratec.javaFinal.contaBancaria;
 
 public abstract class Conta {
 
-	private int agencia;
+	private String agencia;
+	private String numero;
 	private String cpfTitular;
+	private String tipo;
 	private double saldo;
-	private String tipoConta;
+
 	private int quantidadeTranferencia, quantidadeSaque, quantidadeDeposito;
 
 	public Conta() {
 		super();
 
 	}
-
-	public Conta(int agencia, String cpfTitular, double saldo) {
-		super();
+	
+	public Conta(String agencia, String numero, String cpfTitular, double saldo) {
 		this.agencia = agencia;
+		this.numero = numero;
 		this.cpfTitular = cpfTitular;
 		this.saldo = saldo;
 	}
@@ -28,12 +30,20 @@ public abstract class Conta {
 
 	public abstract void depositarDeTransferencia(double valor);
 
-	public int getAgencia() {
+	public String getAgencia() {
 		return agencia;
 	}
 
-	public void setAgencia(int agencia) {
+	public void setAgencia(String agencia) {
 		this.agencia = agencia;
+	}
+	
+	public String getNumero() {
+		return numero;
+	}
+	
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 
 	public String getCpfTitular() {
@@ -53,11 +63,11 @@ public abstract class Conta {
 	}
 
 	public String getTipoConta() {
-		return tipoConta;
+		return tipo;
 	}
 
 	public void setTipoConta(String tipoConta) {
-		this.tipoConta = tipoConta;
+		this.tipo = tipoConta;
 	}
 	
 	public int getQuantidadeTranferencia() {

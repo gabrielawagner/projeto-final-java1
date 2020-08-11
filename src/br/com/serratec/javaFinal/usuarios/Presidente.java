@@ -1,6 +1,6 @@
 package br.com.serratec.javaFinal.usuarios;
 
-public class Presidente extends Diretor {
+public class Presidente extends Gerente {
 	public Presidente() {
 		super();
 	}
