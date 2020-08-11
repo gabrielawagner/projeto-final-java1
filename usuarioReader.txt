@@ -1,4 +1,4 @@
-nome,1,senha,CLIENTE,agencia,saldo,ContaCorrente,quantidadeTranferencia,quantidadeSaque,quantidadeDeposito
+nome,1,senha,CLIENTE,1,2000,ContaCorrente,quantidadeTranferencia,quantidadeSaque,quantidadeDeposito
 nome,2,senha,GERENTE,agencia,saldo,tipoConta,quantidadeTranferencia,quantidadeSaque,quantidadeDeposito
 nome,3,senha,CLIENTE,agencia,saldo,tipoConta,quantidadeTranferencia,quantidadeSaque,quantidadeDeposito
 nome,4,senha,GERENTE,agencia,saldo,tipoConta,quantidadeTranferencia,quantidadeSaque,quantidadeDeposito

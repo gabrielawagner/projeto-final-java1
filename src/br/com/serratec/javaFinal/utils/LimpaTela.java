@@ -5,7 +5,8 @@ public class LimpaTela {
 	{
 	    try
 	    {
-	    	new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+	    	//new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+	    	Runtime.getRuntime().exec("cmd /c cls");
 	    }
 	    catch (final Exception e)
 	    {

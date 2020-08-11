@@ -1,6 +1,7 @@
 package br.com.serratec.javaFinal.menus;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 import br.com.serratec.javaFinal.contaBancaria.Conta;
@@ -15,6 +16,7 @@ public class Menu {
 	Conta conta;
 	Scanner input = new Scanner(System.in);
 	ContaPoupanca cp = new ContaPoupanca(0, "15050", 2500);
+	DecimalFormat df = new DecimalFormat("#.##");
 	
 	public Menu(Usuario usuario, Conta conta) {
 		this.usuario = usuario;
@@ -31,7 +33,7 @@ public class Menu {
 			movimentacoes(usuario);
 			break;
 		case 2:
-			relatorios(usuario);
+			relatoriosCliente(usuario);
 			break;
 		default:
 			System.out.println("Opção Invalida!");
@@ -44,51 +46,6 @@ public class Menu {
 		switch (tipo) {
 		case ("cliente"):
 			cliente(usuario);
-			break;
-		}
-	}
-
-	public void relatorios(Usuario usuario) throws IOException {
-		System.out.println(
-				"[1]-Saldo [2]-Tributação da conta corrente [3]-Simulador Poupança [4]-Contratar seguro de vida [5]-Voltar [6]-Finalizar");
-		int resposta2 = input.nextInt();
-		switch (resposta2) {
-		case 1:
-			LimpaTela.clearConsole();
-			System.out.print("SALDO: ");
-			System.out.println(conta.getSaldo());
-			System.out.println();
-			relatorios(usuario);
-			break;
-		case 2:
-			System.out.println("Tributação Total da Conta Corrente: ");
-			double tributoDeposito = (conta.getQuantidadeDeposito() * Tributos.depositoTributo);
-			double tributoSaque = (conta.getQuantidadeSaque() * Tributos.saqueTributo);
-			double tributoTransferencia = (conta.getQuantidadeTranferencia() * Tributos.transferenciaTributo);
-			LimpaTela.clearConsole();
-			System.out.println(tributoDeposito + tributoSaque + tributoTransferencia);
-			relatorios(usuario);
-			break;
-		case 3:
-			// TODO Metodo de calcular apartir da data inserida
-			System.out.println("Simulador de Rendimento da Poupança: ");
-			System.out.print("Valor: ");
-			double valor = input.nextDouble();
-			System.out.print("Quantidade de dias: ");
-			int dias = input.nextInt();
-			double rendimentoDiario = cp.getRendimento() / 30;
-			LimpaTela.clearConsole();
-			System.out.println("Seu rendimento foi: " + (valor * (dias * rendimentoDiario) / 100));
-			relatorios(usuario);
-			break;
-		case 4:
-			SeguroVida s = new SeguroVida();
-			resposta2 = s.contrataSeguro(usuario, conta);
-			break;
-		case 5:
-			cliente(usuario);
-			break;
-		case 6:
 			break;
 		}
 	}
@@ -126,7 +83,7 @@ public class Menu {
 				conta.transfere(cp, valorTransferencia);
 				break;
 			case 4:
-				principal(usuario);
+				cliente(usuario);
 				break;
 			case 5:
 				sair = true;
@@ -135,4 +92,96 @@ public class Menu {
 		} while (sair == false);
 	}
 
+	public void relatoriosGerente(Usuario usuario) throws IOException {
+		System.out.println(
+				"[1]-Saldo [2]-Tributação da conta corrente [3]-Simulador Poupança [4]-Contratar seguro de vida [5]-Voltar [6]-Finalizar");
+		int resposta2 = input.nextInt();
+		switch (resposta2) {
+		case 1:
+			LimpaTela.clearConsole();
+			System.out.print("SALDO: ");
+			System.out.println(conta.getSaldo());
+			System.out.println();
+			relatoriosGerente(usuario);
+			break;
+		case 2:
+			System.out.println("Tributação Total da Conta Corrente: ");
+			double tributoDeposito = (conta.getQuantidadeDeposito() * Tributos.depositoTributo);
+			double tributoSaque = (conta.getQuantidadeSaque() * Tributos.saqueTributo);
+			double tributoTransferencia = (conta.getQuantidadeTranferencia() * Tributos.transferenciaTributo);
+			LimpaTela.clearConsole();
+			System.out.println(tributoDeposito + tributoSaque + tributoTransferencia);
+			relatoriosGerente(usuario);
+			break;
+		case 3:
+			// TODO Metodo de calcular apartir da data inserida
+			System.out.println("Simulador de Rendimento da Poupança: ");
+			System.out.print("Valor: ");
+			double valor = input.nextDouble();
+			System.out.print("Quantidade de dias: ");
+			int dias = input.nextInt();
+			double rendimentoDiario = cp.getRendimento() / 30;// TODO Trocar formula rendimento
+			LimpaTela.clearConsole();
+			System.out.println("Seu rendimento foi: " + df.format(Math.pow((1 + cp.getRendimento()), dias) * valor));
+			relatoriosGerente(usuario);
+			break;
+		case 4:
+			SeguroVida s = new SeguroVida();
+			resposta2 = s.contrataSeguro(usuario, conta);
+			break;
+		case 5:
+			cliente(usuario);
+			break;
+		case 6:
+			
+			break;
+		case 7:
+			break;
+		}
+	}
+
+	
+	public void relatoriosCliente(Usuario usuario) throws IOException {
+		System.out.println(
+				"[1]-Saldo [2]-Tributação da conta corrente [3]-Simulador Poupança [4]-Contratar seguro de vida [5]-Voltar [6]-Finalizar");
+		int resposta2 = input.nextInt();
+		switch (resposta2) {
+		case 1:
+			LimpaTela.clearConsole();
+			System.out.print("SALDO: ");
+			System.out.println(conta.getSaldo());
+			System.out.println();
+			relatoriosCliente(usuario);
+			break;
+		case 2:
+			System.out.println("Tributação Total da Conta Corrente: ");
+			double tributoDeposito = (conta.getQuantidadeDeposito() * Tributos.depositoTributo);
+			double tributoSaque = (conta.getQuantidadeSaque() * Tributos.saqueTributo);
+			double tributoTransferencia = (conta.getQuantidadeTranferencia() * Tributos.transferenciaTributo);
+			LimpaTela.clearConsole();
+			System.out.println(tributoDeposito + tributoSaque + tributoTransferencia);
+			relatoriosCliente(usuario);
+			break;
+		case 3:
+			// TODO Metodo de calcular apartir da data inserida
+			System.out.println("Simulador de Rendimento da Poupança: ");
+			System.out.print("Valor: ");
+			double valor = input.nextDouble();
+			System.out.print("Quantidade de dias: ");
+			int dias = input.nextInt();
+			LimpaTela.clearConsole();
+			System.out.println("Seu rendimento foi: " + df.format(Math.pow((1 + cp.getRendimento()), dias) * valor));
+			relatoriosCliente(usuario);
+			break;
+		case 4:
+			SeguroVida s = new SeguroVida();
+			resposta2 = s.contrataSeguro(usuario, conta);
+			break;
+		case 5:
+			cliente(usuario);
+			break;
+		case 6:
+			break;
+		}
+	}
 }

@@ -2,7 +2,7 @@ package br.com.serratec.javaFinal.contaBancaria;
 
 public class ContaPoupanca extends Conta implements Tributos{
 	
-	private final double rendimento = 0.5;
+	private final double rendimento = 0.0016;
 		
 	public ContaPoupanca() {
 		super();

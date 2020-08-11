@@ -1,6 +1,4 @@
-package br.com.serratec.javaFinal.usuarios.pessoal;
-
-import br.com.serratec.javaFinal.usuarios.Usuario;
+package br.com.serratec.javaFinal.usuarios;
 
 public abstract class Funcionario extends Usuario {
 
