@@ -1,6 +1,7 @@
 package br.com.serratec.javaFinal.menus;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
@@ -33,40 +34,51 @@ public class Menu {
 		if (usuario.getTipo().equals(EnumUsuarios.CLIENTE.name())) {
 			cliente(usuario, conta, usuarios, contas);
 		} else if (usuario.getTipo().equals(EnumUsuarios.GERENTE.name())) {
-			System.out.println( "Qual menu? [1]Cliente [2]Gerente");// TODO resolver recursividade
+			System.out.println( "INFORME O TIPO DE ACESSO \n\n[1]CLIENTE [2]GERENTE");// TODO resolver recursividade
 			int opcao = input.nextInt();
 			if (opcao == 1) {
 				cliente(usuario, conta, usuarios, contas);
 			} else if (opcao == 2) {
+				LimpaTela.limpaConsole();
+				System.out.println( "[1]RELATÓRIO DAS CONTAS PERTENCENTES A SUA AGÊNCIA");
+				opcao = input.nextInt();
+				if (opcao == 1)
 				gerente(usuario, contas);
 				continuar(usuario, conta, usuarios, contas);
 			}
 		} else if (usuario.getTipo().equals(EnumUsuarios.DIRETOR.name())) {
-			System.out.println("Qual menu? [1]Cliente [2]Diretor");
-			Collections.sort(usuarios);//// TODO SE O MARCELO APARECER PERGUNTAR COMO RESOLVER O SORT
+			System.out.println("INFORME O TIPO DE ACESSO \n\n[1]CLIENTE [2]DIRETOR");
+			Collections.sort(usuarios);
 			int opcao = input.nextInt();
 			if (opcao == 1) {
 				cliente(usuario, conta, usuarios, contas);
 			} else if (opcao == 2) {
+				System.out.println( "[1]RELATÓRIO DOS CLIENTE DO BANCO");
+				opcao = input.nextInt();
+				if (opcao == 1)
 				for (Usuario u : usuarios) {
-					System.out.println("Nome: " + u.getNome());
+					System.out.println("NOME: " + u.getNome());
 					System.out.println("CPF: " + u.getCpf());
-					System.out.println("Agencia: " + u.getAgencia());
+					System.out.println("AGÊNCIA: " + u.getAgencia());
 					System.out.println();
 				}
+				ArquivoUtils.relatorioDiretor("./", usuarios, usuario);
 				continuar(usuario, conta, usuarios, contas);
 			}
 		} else if (usuario.getTipo().equals(EnumUsuarios.PRESIDENTE.name())) {
-			System.out.println("Qual menu? [1]Cliente [2]Presidente");
+			System.out.println("INFORME O TIPO DE ACESSO \n\n[1]CLIENTE [2]PRESIDENTE");
 			int opcao = input.nextInt();
 			double capitalTotal = 0;
 			if (opcao == 1) {
 				cliente(usuario, conta, usuarios, contas);
 			} else if (opcao == 2) {
+				System.out.println( "[1]RELATÓRIO DO CAPITAL ARMAZENADO NO BANCO");
+				opcao = input.nextInt();
+				if (opcao == 1)
 				for (Conta c : contas) {
 					capitalTotal += c.getSaldo();
 				}
-				System.out.println("O valor total do capital armazenado no banco é: " + capitalTotal);
+				System.out.println("CAPITAL ARMAZENADO NO BANCO: " + capitalTotal);
 				continuar(usuario, conta, usuarios, contas);
 			}
 		}
@@ -74,7 +86,7 @@ public class Menu {
 
 	private void continuar(Usuario usuario, Conta conta, List<Usuario> usuarios, List<Conta> contas)
 			throws IOException {
-		System.out.println("\n\nInsira qualquer tecla para continuar.");
+		System.out.println("\n\nINSIRA QUALQUER TECLA PARA CONTINUAR.");
 		input.next();
 		LimpaTela.limpaConsole();
 		principal(usuario, conta, usuarios, contas);
@@ -84,7 +96,7 @@ public class Menu {
 
 		if (usuario.getTipo().equals(EnumUsuarios.CLIENTE.name())) {
 
-			System.out.println("[1]Movimentações ou [2]Relatórios");
+			System.out.println("[1]MOVIMENTAÇÕES [2]RELATÓRIOS");
 			int resposta = input.nextInt();
 			LimpaTela.limpaConsole();
 			switch (resposta) {
@@ -95,11 +107,11 @@ public class Menu {
 				relatorios(usuario, conta, usuarios, contas);
 				break;
 			default:
-				System.out.println("Opção Invalida!");
+				System.out.println("OPÇÃO INVÁLIDA!");
 				cliente(usuario, conta, usuarios, contas);
 			}
 		} else {
-			System.out.println("Bem vindo escolha: [1]Movimentações [2]Relatórios [3]Voltar");
+			System.out.println("INFORME A OPÇÃO DESEJADA \n\n[1]MOVIMENTAÇÕES [2]RELATÓRIOS [3]VOLTAR");
 			int resposta = input.nextInt();
 			LimpaTela.limpaConsole();
 			switch (resposta) {
@@ -123,7 +135,7 @@ public class Menu {
 			throws IOException {
 		boolean sair = false;
 		do {
-			System.out.println("Digite: \n[1]Saque [2]Depósito [3]Transferência [4]Voltar [5]Finalizar");
+			System.out.println("INFORME A OPÇÃO DESEJADA \n[1]SAQUE \n[2]DEPÓSITO \n[3]TRANSFERÊNCIA \n[4]VOLTAR \n[5]FINALIZAR");
 			int resposta2;
 			resposta2 = input.nextInt();
 			LimpaTela.limpaConsole();
@@ -188,15 +200,18 @@ public class Menu {
 	public void gerente(Usuario usuario, List<Conta> contas) throws IOException {
 		LimpaTela.limpaConsole();
 		String agencia = usuario.getAgencia();
-		System.out.println("Gerente " + usuario.getNome() + " suas contas gerenciadas são: ");
+		System.out.println(usuario.getNome().toUpperCase() + ", SUAS CONTAS GERENCIADAS SÃO: ");
 		int total = 0;
+		ArrayList aux = new ArrayList<>();
 		for (Conta conta : contas) {
 			if (conta.getAgencia().equals(agencia)) {
 				total++;
-				System.out.println("CPF: " + conta.getCpfTitular() + " - número da conta: " + conta.getNumero());
+				aux.add(conta);
+				System.out.println("CPF: " + conta.getCpfTitular() + " - NÚMERO DA CONTA: " + conta.getNumero());
 			}
 		}
-		System.out.println("Sua contas gerenciadas na agencia " + agencia + " são no total: " + total);
+		ArquivoUtils.relatorioGerente("./", aux, total, usuario);
+		System.out.println("\nO GERENTE " + usuario.getNome().toUpperCase() + " GERENCIA UM TOTAL DE " + total + " CONTAS.");
 	}
 
 	public void relatorios(Usuario usuario, Conta conta, List<Usuario> usuarios, List<Conta> contas)
