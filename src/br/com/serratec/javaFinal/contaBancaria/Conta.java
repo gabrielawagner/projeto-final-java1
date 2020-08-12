@@ -15,11 +15,12 @@ public abstract class Conta {
 
 	}
 	
-	public Conta(String agencia, String numero, String cpfTitular, double saldo) {
+	public Conta(String agencia, String numero, String cpfTitular, double saldo, String tipo) {
 		this.agencia = agencia;
 		this.numero = numero;
 		this.cpfTitular = cpfTitular;
 		this.saldo = saldo;
+		this.tipo = tipo;
 	}
 
 	public abstract boolean sacar(double valor);

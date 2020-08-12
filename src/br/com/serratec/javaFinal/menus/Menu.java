@@ -50,7 +50,7 @@ public class Menu {
 				for (Usuario u : usuarios) {
 					// Collections.sort(usuarios);//// TODO SE O MARCELO APARECER PERGUNTAR
 					System.out.println("[1] RELATÓRIO DOS CLIENTES DO BANCO");
-					int opcao = input.nextInt();
+					opcao = input.nextInt();
 					if (opcao == 1)
 					System.out.println("NOME" + u.getNome());
 					System.out.println("CPF: " + u.getCpf());
@@ -66,7 +66,7 @@ public class Menu {
 				cliente(usuario, conta, usuarios, contas);
 			} else if (opcao == 2) {
 				System.out.println("[1] RELATÓRIO DO CAPITAL ARMAZENDADO NO BANCO");
-				int opcao = input.nextInt();
+				opcao = input.nextInt();
 				if (opcao == 1)
 				for (Conta c : contas) {
 					capitalTotal += c.getSaldo();

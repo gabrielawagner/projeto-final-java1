@@ -47,10 +47,10 @@ public class ArquivoUtils {
 					Presidente p = new Presidente(split[0], split[1], split[2], split[3], split[4]);
 					usuarios.add(p);
 				} else if (split[4].equals(EnumContas.CORRENTE.name())) {
-					ContaCorrente cc = new ContaCorrente(split[0], split[1], split[2], Double.parseDouble(split[3]));
+					ContaCorrente cc = new ContaCorrente(split[0], split[1], split[2], Double.parseDouble(split[3]), split[4]);
 					contas.add(cc);
 				} else if (split[4].equals(EnumContas.POUPANCA.name())) {
-					ContaPoupanca cp = new ContaPoupanca(split[0], split[1], split[2], Double.parseDouble(split[3]));
+					ContaPoupanca cp = new ContaPoupanca(split[0], split[1], split[2], Double.parseDouble(split[3]),split[4]);
 					contas.add(cp);
 				}
 			} else

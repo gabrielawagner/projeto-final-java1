@@ -10,8 +10,8 @@ public class ContaPoupanca extends Conta implements Tributos{
 		super();
 	}
 
-	public ContaPoupanca(String agencia, String numero, String cpfTitular, double saldo) {
-		super(agencia, numero, cpfTitular, saldo);
+	public ContaPoupanca(String agencia, String numero, String cpfTitular, double saldo, String tipo) {
+		super(agencia, numero, cpfTitular, saldo, tipo);
 	}
 	
 	public double getRendimento() {

@@ -6,8 +6,8 @@ public class ContaCorrente extends Conta implements Tributos {
 		super();
 	}
 
-	public ContaCorrente(String agencia, String numero, String cpfTitular, double saldo) {
-		super(agencia, numero, cpfTitular, saldo);
+	public ContaCorrente(String agencia, String numero, String cpfTitular, double saldo, String tipo) {
+		super(agencia, numero, cpfTitular, saldo, tipo);
 	}
 
 	@Override
