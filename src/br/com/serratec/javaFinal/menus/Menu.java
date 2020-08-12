@@ -33,7 +33,7 @@ public class Menu {
 		if (usuario.getTipo().equals(EnumUsuarios.CLIENTE.name())) {
 			cliente(usuario, conta, usuarios, contas);
 		} else if (usuario.getTipo().equals(EnumUsuarios.GERENTE.name())) {
-			System.out.println("Qual menu? [1]Cliente [2]Gerente");// TODO resolver recursividade
+			System.out.println("INFORME O TIPO DE ACESSO \n [1]Cliente [2]Gerente");// TODO resolver recursividade
 			int opcao = input.nextInt();
 			if (opcao == 1) {
 				cliente(usuario, conta, usuarios, contas);
@@ -42,16 +42,19 @@ public class Menu {
 				continuar(usuario, conta, usuarios, contas);
 			}
 		} else if (usuario.getTipo().equals(EnumUsuarios.DIRETOR.name())) {
-			System.out.println("Qual menu? [1]Cliente [2]Diretor");
+			System.out.println("INFORME O TIPO DE ACESSO \n [1]Cliente [2]Diretor");
 			int opcao = input.nextInt();
 			if (opcao == 1) {
 				cliente(usuario, conta, usuarios, contas);
 			} else if (opcao == 2) {// TODO JOGO DO BICHO??? ou vale oq esta escrito?
 				for (Usuario u : usuarios) {
 					// Collections.sort(usuarios);//// TODO SE O MARCELO APARECER PERGUNTAR
-					System.out.println("Nome: " + u.getNome());
+					System.out.println("[1] RELATÓRIO DOS CLIENTES DO BANCO");
+					int opcao = input.nextInt();
+					if (opcao == 1)
+					System.out.println("NOME" + u.getNome());
 					System.out.println("CPF: " + u.getCpf());
-					System.out.println("Agencia: " + u.getAgencia());
+					System.out.println("AGÊNCIA: " + u.getAgencia());
 				}
 				continuar(usuario, conta, usuarios, contas);
 			}
@@ -62,10 +65,13 @@ public class Menu {
 			if (opcao == 1) {
 				cliente(usuario, conta, usuarios, contas);
 			} else if (opcao == 2) {
+				System.out.println("[1] RELATÓRIO DO CAPITAL ARMAZENDADO NO BANCO");
+				int opcao = input.nextInt();
+				if (opcao == 1)
 				for (Conta c : contas) {
 					capitalTotal += c.getSaldo();
 				}
-				System.out.println("O valor total do capital armazenado no banco é: " + capitalTotal);
+				System.out.println("CAPITAL ARMAZENADO NO BANCO: " + capitalTotal);
 				continuar(usuario, conta, usuarios, contas);
 			}
 		}
