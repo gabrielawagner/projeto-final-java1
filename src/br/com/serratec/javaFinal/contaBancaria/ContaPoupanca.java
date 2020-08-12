@@ -37,7 +37,6 @@ public class ContaPoupanca extends Conta implements Tributos{
 	@Override
 	public boolean transfere(Conta destino, double valor) {
 		if (this.sacarTransferencia(valor + valorTransferencia)) {
-			//TODO Implementar exceção
 			executaOperacao("transfere");
 			destino.depositarDeTransferencia(valor);
 			return true;
@@ -49,7 +48,7 @@ public class ContaPoupanca extends Conta implements Tributos{
 	@Override
 	public void depositar(double valor) {
 		System.out.println("Valor depositado: " + valor);
-		System.out.println("Novo saldo: " + (this.getSaldo() + valor - valorDeposito));
+		System.out.format("Novo saldo: %.2f", (this.getSaldo() + valor - valorDeposito));
 		executaOperacao("depositar");
 		this.setSaldo(this.getSaldo() + valor - valorDeposito);
 	}
@@ -67,7 +66,7 @@ public class ContaPoupanca extends Conta implements Tributos{
 			double novoSaldo = this.getSaldo() - valor;
 			System.out.println("Valor debitado da sua conta: " + (valor));
 			this.setSaldo(novoSaldo);
-			System.out.println("Saldo disponivel: " + this.getSaldo());
+			System.out.format("Saldo disponivel: %.2f", this.getSaldo());
 			return true;
 		}
 	}

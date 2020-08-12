@@ -2,10 +2,10 @@ package br.com.serratec.javaFinal.utils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,6 +13,7 @@ import java.util.Date;
 import br.com.serratec.javaFinal.contaBancaria.Conta;
 import br.com.serratec.javaFinal.contaBancaria.ContaCorrente;
 import br.com.serratec.javaFinal.contaBancaria.ContaPoupanca;
+import br.com.serratec.javaFinal.contaBancaria.Tributos;
 import br.com.serratec.javaFinal.enums.EnumContas;
 import br.com.serratec.javaFinal.enums.EnumUsuarios;
 import br.com.serratec.javaFinal.usuarios.Cliente;
@@ -47,10 +48,12 @@ public class ArquivoUtils {
 					Presidente p = new Presidente(split[0], split[1], split[2], split[3], split[4]);
 					usuarios.add(p);
 				} else if (split[4].equals(EnumContas.CORRENTE.name())) {
-					ContaCorrente cc = new ContaCorrente(split[0], split[1], split[2], Double.parseDouble(split[3]), split[4]);
+					ContaCorrente cc = new ContaCorrente(split[0], split[1], split[2], Double.parseDouble(split[3]),
+							split[4]);
 					contas.add(cc);
 				} else if (split[4].equals(EnumContas.POUPANCA.name())) {
-					ContaPoupanca cp = new ContaPoupanca(split[0], split[1], split[2], Double.parseDouble(split[3]),split[4]);
+					ContaPoupanca cp = new ContaPoupanca(split[0], split[1], split[2], Double.parseDouble(split[3]),
+							split[4]);
 					contas.add(cp);
 				}
 			} else
@@ -59,34 +62,176 @@ public class ArquivoUtils {
 		buffRead.close();
 	}
 
-	public static void escritor(String path, Usuario usuario, Conta conta) throws IOException {
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss_");
+	public static void saldo(String path, Usuario usuario, Conta conta) throws IOException {
+		SimpleDateFormat formataData = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss_");
 		Date data = new Date();
-		
-		path += simpleDateFormat.format(data) + usuario.getNome() + ".bancoBeta";
-		File f = new File(path);
-		
+
+		path += "SALDO_" + formataData.format(data) + usuario.getNome() + ".bancoBeta";
+
 		BufferedWriter buffWrite = new BufferedWriter(new FileWriter(path));
-		String linha = "**********Saldo**********";
+
+		String linha = "********************************************";
+		buffWrite.append(linha + "\n");
+		linha = Utils.centraliza() + "SALDO DA CONTA " + conta.getTipoConta();
+		buffWrite.append(linha + "\n");
+		linha = Utils.centraliza() + "AGÊNCIA: " + usuario.getAgencia();
+		buffWrite.append(linha + "\n");
+		linha = Utils.centraliza() + "CONTA: " + conta.getNumero();
+		buffWrite.append(linha + "\n");
+		linha = Utils.centraliza() + "TITULAR: " + usuario.getNome();
+		buffWrite.append(linha + "\n");
+		linha = "********************************************";
+		buffWrite.append(linha + "\n");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		linha = Utils.centraliza() + "SALDO EM " + sdf.format(data) + ": " + conta.getSaldo();
 		buffWrite.append(linha + "\n");
 
-		if (usuario.getTipo().equals(EnumUsuarios.CLIENTE.name())) {
-			linha = "" + ((Cliente) usuario).getAgencia();
-			buffWrite.append(linha + "\n");
-			linha = "" + ((Cliente) usuario).getNome();
-			buffWrite.append(linha + "\n");
-			linha = "" + ((Cliente) usuario).getAgencia();
-			buffWrite.append(linha + "\n");
-			linha = "" + conta.getSaldo();
-			buffWrite.append(linha + "\n");
-		}
-		if (usuario.getTipo().equals(EnumUsuarios.GERENTE.name())) {
-			((Cliente) usuario).getAgencia();
-		}
+		linha = "********************************************";
+		buffWrite.append(linha + "\n");
+		buffWrite.close();
+	}
 
-		linha = "**********Fim do Saldo**********";
+	public static void deposita(String path, Usuario usuario, Conta conta, double valor) throws IOException {
+		SimpleDateFormat formataData = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss_");
+		Date data = new Date();
+
+		path += "DEPOSITO_" + formataData.format(data) + usuario.getNome() + ".bancoBeta";
+
+		BufferedWriter buffWrite = new BufferedWriter(new FileWriter(path));
+
+		String linha = "********************************************";
+		buffWrite.append(linha + "\n");
+		linha = Utils.centraliza() + "TITULAR: " + usuario.getNome();
+		buffWrite.append(linha + "\n");
+		linha = Utils.centraliza() + "AGÊNCIA: " + usuario.getAgencia();
+		buffWrite.append(linha + "\n");
+		linha = Utils.centraliza() + "CONTA: " + conta.getNumero();
+		buffWrite.append(linha + "\n");
+		linha = Utils.centraliza() + "VALOR DEPOSITADO: " + valor;
+		buffWrite.append(linha + "\n");
+		linha = Utils.centraliza() + "NOVO SALDO DA CONTA: " + conta.getSaldo();
+		buffWrite.append(linha + "\n");
+		linha = "********************************************";
+		buffWrite.append(linha + "\n");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		linha = Utils.centraliza() + "DATA DA TRANSAÇÃO: " + sdf.format(data);
 		buffWrite.append(linha + "\n");
 
+		linha = "********************************************";
+		buffWrite.append(linha + "\n");
+		buffWrite.close();
+	}
+
+	public static void saque(String path, Usuario usuario, Conta conta, double valor) throws IOException {
+		SimpleDateFormat formataData = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss_");
+		Date data = new Date();
+
+		path += "SAQUE_" + formataData.format(data) + usuario.getNome() + ".bancoBeta";
+
+		BufferedWriter buffWrite = new BufferedWriter(new FileWriter(path));
+
+		String linha = "********************************************";
+		buffWrite.append(linha + "\n");
+		linha = Utils.centraliza() + "TITULAR: " + usuario.getNome();
+		buffWrite.append(linha + "\n");
+		linha = Utils.centraliza() + "AGÊNCIA: " + usuario.getAgencia();
+		buffWrite.append(linha + "\n");
+		linha = Utils.centraliza() + "CONTA: " + conta.getNumero();
+		buffWrite.append(linha + "\n");
+		linha = Utils.centraliza() + "VALOR SACADO: " + valor;
+		buffWrite.append(linha + "\n");
+		linha = Utils.centraliza() + "NOVO SALDO DA CONTA: " + conta.getSaldo();
+		buffWrite.append(linha + "\n");
+		linha = "********************************************";
+		buffWrite.append(linha + "\n");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		linha = Utils.centraliza() + "DATA DA TRANSAÇÃO: " + sdf.format(data);
+		buffWrite.append(linha + "\n");
+
+		linha = "********************************************";
+		buffWrite.append(linha + "\n");
+		buffWrite.close();
+	}
+
+	public static void transferencia(String path, Usuario usuario, Conta conta, Conta destino, double valor)
+			throws IOException {
+		SimpleDateFormat formataData = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss_");
+		Date data = new Date();
+
+		path += "TRANSFERENCIA_" + formataData.format(data) + usuario.getNome() + ".bancoBeta";
+
+		BufferedWriter buffWrite = new BufferedWriter(new FileWriter(path));
+
+		String linha = "******************************************************************************************************";
+		buffWrite.append(linha + "\n");
+		linha = Utils.centraliza() + "COMPROVANTE DE TRANSFERÊNCIA DE CONTA " + conta.getTipoConta() + " PARA CONTA "
+				+ destino.getTipoConta();
+		buffWrite.append(linha + "\n");
+		linha = Utils.centraliza() + "DADOS DA CONTA DEBITADA:";
+		buffWrite.append(linha + "\n");
+		linha = Utils.centraliza() + "AGÊNCIA: " + usuario.getAgencia();
+		buffWrite.append(linha + "\n");
+		linha = Utils.centraliza() + "CONTA: " + conta.getNumero();
+		buffWrite.append(linha + "\n");
+		linha = Utils.centraliza() + "DADOS DA CONTA CREDITADA:";
+		buffWrite.append(linha + "\n");
+		linha = Utils.centraliza() + "AGÊNCIA: " + usuario.getAgencia();
+		buffWrite.append(linha + "\n");
+		linha = Utils.centraliza() + "CONTA: " + destino.getNumero();
+		buffWrite.append(linha + "\n");
+		linha = Utils.centraliza() + "VALOR: " + valor;
+		buffWrite.append(linha + "\n");
+		linha = "******************************************************************************************************";
+
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		buffWrite.append(linha + "\n");
+		linha = Utils.centraliza() + "TRANSFERÊNCIA EFETUADA EM " + sdf.format(data);
+		buffWrite.append(linha + "\n");
+
+		linha = "******************************************************************************************************";
+		buffWrite.append(linha + "\n");
+		buffWrite.close();
+	}
+
+	public static void tributacaoContaCorrente(String path, Usuario usuario, Conta conta) throws IOException {
+		SimpleDateFormat formataData = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss_");
+		Date data = new Date();
+
+		path += "tributacaoContaCorrente_".toUpperCase() + formataData.format(data) + usuario.getNome() + ".bancoBeta";
+
+		BufferedWriter buffWrite = new BufferedWriter(new FileWriter(path));
+		
+		double tributoDeposito = (conta.getQuantidadeDeposito() * Tributos.valorDeposito);
+		double tributoSaque = (conta.getQuantidadeSaque() * Tributos.valorSaque);
+		double tributoTransferencia = (conta.getQuantidadeTranferencia() * Tributos.valorTransferencia);
+		double total = tributoDeposito+tributoSaque+tributoTransferencia;
+		DecimalFormat df = new DecimalFormat("#.##");
+		
+		String linha = "******************************************************************************************************";
+		buffWrite.append(linha + "\n");
+		linha = Utils.centraliza() + "TRIBUTAÇÃO TOTAL DA CONTA CORRENTE: ";
+		buffWrite.append(linha + "\n");
+		linha = Utils.centraliza() + "QUANTIDADE DE SAQUES: " + conta.getQuantidadeSaque();
+		buffWrite.append(linha + "\n");
+		linha = Utils.centraliza() + "QUANTIDADE DE DEPOSITOS: " + conta.getQuantidadeDeposito();
+		buffWrite.append(linha + "\n");
+		linha = Utils.centraliza() + "QUANTIDADE DE TRANSFERENCIAS: " + conta.getQuantidadeTranferencia();
+		buffWrite.append(linha + "\n");
+		linha = Utils.centraliza() + "VALOR POR TRANSFERENCIA: " + Tributos.valorTransferencia;
+		buffWrite.append(linha + "\n");
+		linha = Utils.centraliza() + "VALOR POR DEPOSITO: " + Tributos.valorDeposito;
+		buffWrite.append(linha + "\n");
+		linha = Utils.centraliza() + "VALOR POR SAQUE: " + Tributos.valorSaque;
+		buffWrite.append(linha + "\n");
+		linha = Utils.centraliza() + "TOTAL: " + df.format(total);
+		buffWrite.append(linha + "\n");
+		linha = "******************************************************************************************************";
+		buffWrite.append(linha + "\n");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		linha = Utils.centraliza() + "TRANSFERÊNCIA EFETUADA EM " + sdf.format(data);
+		buffWrite.append(linha + "\n");
+		linha = "******************************************************************************************************";
+		buffWrite.append(linha + "\n");
 		buffWrite.close();
 	}
 }
