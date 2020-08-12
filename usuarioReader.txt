@@ -1,7 +1,7 @@
 Gabrielly Alves Castro,1,senha,CLIENTE,1
 Luis Correia Gomes,2,senha,GERENTE,2
-Fernanda Goncalves Barbosa,3,senha,CLIENTE,1
-Ana Gomes Goncalves,4,senha,DIRETOR,1
+Fernanda Goncalves Barbosa,3,senha,DIRETOR,1
+Ana Gomes Goncalves,4,senha,PRESIDENTE,1
 Carla Cardoso Castro,5,senha,GERENTE,1
 Giovana Carvalho Alves,6,senha,PRESIDENTE,1
 Marina Ribeiro Azevedo,7,senha,GERENTE,1
@@ -9,7 +9,7 @@ Ana Barros Pinto,8,senha,DIRETOR,1
 Martim Sousa Pereira,9,senha,DIRETOR,2
 Júlia Correia Sousa,10,senha,GERENTE,1
 1,123,1,2000,CORRENTE
-1,1234,2,2000,CORRENTE
+1,1234,2,2000,POUPANCA
 2,123,3,2000,CORRENTE
 2,4422,4,2000,CORRENTE
 1,55231,5,2000,CORRENTE

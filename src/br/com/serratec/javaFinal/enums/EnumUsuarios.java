@@ -1,6 +1,6 @@
 package br.com.serratec.javaFinal.enums;
 
-public enum TiposUsuarios {
+public enum EnumUsuarios {
 	CLIENTE,
 	DIRETOR,
 	GERENTE,

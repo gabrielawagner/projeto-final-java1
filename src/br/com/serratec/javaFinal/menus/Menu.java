@@ -2,7 +2,6 @@ package br.com.serratec.javaFinal.menus;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,77 +9,117 @@ import br.com.serratec.javaFinal.contaBancaria.Conta;
 import br.com.serratec.javaFinal.contaBancaria.ContaPoupanca;
 import br.com.serratec.javaFinal.contaBancaria.SeguroVida;
 import br.com.serratec.javaFinal.contaBancaria.Tributos;
-import br.com.serratec.javaFinal.enums.TiposUsuarios;
+import br.com.serratec.javaFinal.enums.EnumUsuarios;
 import br.com.serratec.javaFinal.usuarios.Usuario;
+import br.com.serratec.javaFinal.utils.ArquivoUtils;
 import br.com.serratec.javaFinal.utils.LimpaTela;
 
 public class Menu {
-	private Usuario usuario;
 	private Scanner input = new Scanner(System.in);
 	private DecimalFormat df = new DecimalFormat("#.##");
-	private Conta conta;
 
 	public Menu() {
 	}
-	
+
 	/**
 	 * Inicializa o menu principal
 	 * 
-	 * @param usuario - usuario logado
-	 * @param conta - conta bancaria do usuario logado
+	 * @param usuario  - usuario logado
+	 * @param conta    - conta bancaria do usuario logado
 	 * @param usuarios - lista de usuarios carregada do arquivo txt.
-	 * @param contas - lista de contas carregada do arquivo txt.
+	 * @param contas   - lista de contas carregada do arquivo txt.
 	 */
-	public void principal(Usuario usuario, Conta conta, List<Usuario> usuarios, ArrayList<Conta> contas) throws IOException {
-		if (this.usuario.getTipo().equals(TiposUsuarios.CLIENTE.name())) {
-			cliente(contas);
-		} else if (this.usuario.getTipo().equals(TiposUsuarios.GERENTE.name())) {
+	public void principal(Usuario usuario, Conta conta, List<Usuario> usuarios, List<Conta> contas) throws IOException {
+		if (usuario.getTipo().equals(EnumUsuarios.CLIENTE.name())) {
+			cliente(usuario, conta, usuarios, contas);
+		} else if (usuario.getTipo().equals(EnumUsuarios.GERENTE.name())) {
 			System.out.println("Qual menu? [1]Cliente [2]Gerente");// TODO resolver recursividade
 			int opcao = input.nextInt();
 			if (opcao == 1) {
-				cliente(contas);
+				cliente(usuario, conta, usuarios, contas);
 			} else if (opcao == 2) {
-				gerente(contas);
-				System.out.println("Insira qualquer tecla para continuar.");
-				input.next();
-				LimpaTela.limpaConsole();
-				principal(usuario, conta, usuarios, contas);
+				gerente(usuario, contas);
+				continuar(usuario, conta, usuarios, contas);
 			}
-		} else if (this.usuario.getTipo().equals(TiposUsuarios.DIRETOR.name())) {
+		} else if (usuario.getTipo().equals(EnumUsuarios.DIRETOR.name())) {
 			System.out.println("Qual menu? [1]Cliente [2]Diretor");
 			int opcao = input.nextInt();
 			if (opcao == 1) {
-				cliente(contas);
+				cliente(usuario, conta, usuarios, contas);
 			} else if (opcao == 2) {// TODO JOGO DO BICHO??? ou vale oq esta escrito?
 				for (Usuario u : usuarios) {
-					// Collections.sort(usuarios); TODO SE O MARCELO APARECER PERGUNTAR
+					// Collections.sort(usuarios);//// TODO SE O MARCELO APARECER PERGUNTAR
 					System.out.println("Nome: " + u.getNome());
 					System.out.println("CPF: " + u.getCpf());
 					System.out.println("Agencia: " + u.getAgencia());
 				}
+				continuar(usuario, conta, usuarios, contas);
 			}
-		} 
-	}
-
-	public void cliente(List<Conta> contas) throws IOException {
-
-		System.out.println("Bem vindo escolha: [1]Movimentações ou [2]Relatórios");
-		int resposta = input.nextInt();
-		LimpaTela.limpaConsole();
-		switch (resposta) {
-		case 1:
-			movimentacoes(contas);
-			break;
-		case 2:
-			relatorios(contas);
-			break;
-		default:
-			System.out.println("Opção Invalida!");
-			cliente(contas);
+		} else if (usuario.getTipo().equals(EnumUsuarios.PRESIDENTE.name())) {
+			System.out.println("Qual menu? [1]Cliente [2]Presidente");
+			int opcao = input.nextInt();
+			double capitalTotal = 0;
+			if (opcao == 1) {
+				cliente(usuario, conta, usuarios, contas);
+			} else if (opcao == 2) {
+				for (Conta c : contas) {
+					capitalTotal += c.getSaldo();
+				}
+				System.out.println("O valor total do capital armazenado no banco é: " + capitalTotal);
+				continuar(usuario, conta, usuarios, contas);
+			}
 		}
 	}
 
-	public void movimentacoes(List<Conta> contas) throws IOException {
+	private void continuar(Usuario usuario, Conta conta, List<Usuario> usuarios, List<Conta> contas)
+			throws IOException {
+		System.out.println("Insira qualquer tecla para continuar.");
+		input.next();
+		LimpaTela.limpaConsole();
+		principal(usuario, conta, usuarios, contas);
+	}
+
+	public void cliente(Usuario usuario, Conta conta, List<Usuario> usuarios, List<Conta> contas) throws IOException {
+
+		if (usuario.getTipo().equals(EnumUsuarios.CLIENTE.name())) {
+
+			System.out.println("Bem vindo escolha: [1]Movimentações ou [2]Relatórios");
+			int resposta = input.nextInt();
+			LimpaTela.limpaConsole();
+			switch (resposta) {
+			case 1:
+				movimentacoes(usuario, conta, usuarios, contas);
+				break;
+			case 2:
+				relatorios(usuario, conta, usuarios, contas);
+				break;
+			default:
+				System.out.println("Opção Invalida!");
+				cliente(usuario, conta, usuarios, contas);
+			}
+		} else {
+			System.out.println("Bem vindo escolha: [1]Movimentações [2]Relatórios [3]Voltar");
+			int resposta = input.nextInt();
+			LimpaTela.limpaConsole();
+			switch (resposta) {
+			case 1:
+				movimentacoes(usuario, conta, usuarios, contas);
+				break;
+			case 2:
+				relatorios(usuario, conta, usuarios, contas);
+				break;
+			case 3:
+				principal(usuario, conta, usuarios, contas);
+				break;
+			default:
+				System.out.println("Opção Invalida!");
+				cliente(usuario, conta, usuarios, contas);
+			}
+		}
+	}
+
+	public void movimentacoes(Usuario usuario, Conta conta, List<Usuario> usuarios, List<Conta> contas)
+			throws IOException {
 		boolean sair = false;
 		do {
 			System.out.println("\nDigite: \n[1]Saque [2]Depósito [3]Transferência [4]Voltar [5]Finalizar");
@@ -113,13 +152,12 @@ public class Menu {
 				System.out.println("Numero da conta: ");
 				input.nextLine();
 				String numeroContaDestino = input.nextLine();
-				Conta destino = buscaContaDestino(numeroContaDestino, contas);
-				System.out.println(destino.getSaldo());
+				Conta destino = buscaContaDestino(numeroContaDestino, contas);// TODO implementar
+																				// contaNaoEXisteException
 				conta.transfere(destino, valorTransferencia);
-				System.out.println(destino.getSaldo());
 				break;
 			case 4:
-				cliente(contas);
+				cliente(usuario, conta, usuarios, contas);
 				break;
 			case 5:
 				System.exit(0);
@@ -131,16 +169,16 @@ public class Menu {
 
 	private Conta buscaContaDestino(String numeroContaDestino, List<Conta> contas) {
 		for (Conta conta : contas) {
-			if(numeroContaDestino.equals(conta.getNumero())) {
+			if (numeroContaDestino.equals(conta.getNumero())) {
 				return conta;
 			}
 		}
 		return null;
 	}
 
-	public void gerente(ArrayList<Conta> contas) throws IOException {
+	public void gerente(Usuario usuario, List<Conta> contas) throws IOException {
 		LimpaTela.limpaConsole();
-		String agencia = this.usuario.getAgencia();
+		String agencia = usuario.getAgencia();
 		System.out.println("Gerente " + usuario.getNome() + " suas contas gerenciadas são: ");
 		int total = 0;
 		for (Conta conta : contas) {
@@ -152,7 +190,8 @@ public class Menu {
 		System.out.println("Sua contas gerenciadas na agencia " + agencia + " são no total: " + total);
 	}
 
-	public void relatorios(List<Conta> contas) throws IOException {
+	public void relatorios(Usuario usuario, Conta conta, List<Usuario> usuarios, List<Conta> contas)
+			throws IOException {
 		System.out.println(
 				"[1]-Saldo [2]-Tributação da conta corrente [3]-Simulador Poupança [4]-Contratar seguro de vida [5]-Voltar [6]-Finalizar");
 		int resposta2 = input.nextInt();
@@ -162,7 +201,7 @@ public class Menu {
 			System.out.print("SALDO: ");
 			System.out.println(conta.getSaldo());
 			System.out.println();
-			relatorios(contas);
+			relatorios(usuario, conta, usuarios, contas);
 			break;
 		case 2:
 			System.out.println("Tributação Total da Conta Corrente: ");
@@ -173,8 +212,8 @@ public class Menu {
 			System.out.println("Valor por transferencia: " + Tributos.valorTransferencia);
 			System.out.println("Valor por deposito: " + Tributos.valorDeposito);
 			System.out.println("Valor por saque: " + Tributos.valorSaque);
-			System.out.println("Total: " + (tributoDeposito + tributoSaque + tributoTransferencia));
-			relatorios(contas);
+			System.out.println("Total: " + df.format((tributoDeposito + tributoSaque + tributoTransferencia)));
+			relatorios(usuario, conta, usuarios, contas);
 			break;
 		case 3:
 			// TODO Metodo de calcular apartir da data inserida
@@ -183,37 +222,20 @@ public class Menu {
 			double valor = input.nextDouble();
 			System.out.print("Quantidade de dias: ");
 			int dias = input.nextInt();
-			LimpaTela.limpaConsole();// TODO java.lang.ClassCastException: 
+			LimpaTela.limpaConsole();// TODO java.lang.ClassCastException:
 			System.out.println("Seu rendimento foi: "
 					+ df.format(Math.pow((1 + ((ContaPoupanca) conta).getRendimento()), dias) * valor));
-			relatorios(contas);
+			relatorios(usuario, conta, usuarios, contas);
 			break;
 		case 4:
 			SeguroVida s = new SeguroVida();
-			resposta2 = s.contrataSeguro(this.usuario, this.conta);
+			resposta2 = s.contrataSeguro(usuario, conta);
 			break;
 		case 5:
-			cliente(contas);
+			cliente(usuario, conta, null, contas);
 			break;
 		case 6:
 			break;
 		}
 	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
-	public Conta getConta() {
-		return conta;
-	}
-
-	public void setConta(Conta conta) {
-		this.conta = conta;
-	}
-
 }

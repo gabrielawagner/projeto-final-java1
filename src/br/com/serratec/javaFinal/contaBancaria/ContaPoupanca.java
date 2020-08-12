@@ -1,5 +1,7 @@
 package br.com.serratec.javaFinal.contaBancaria;
 
+import java.text.DecimalFormat;
+
 public class ContaPoupanca extends Conta implements Tributos{
 	
 	private final double rendimento = 0.0016;
@@ -18,15 +20,16 @@ public class ContaPoupanca extends Conta implements Tributos{
 
 	@Override
 	public boolean sacar(double valor) {
+		//DecimalFormat df = new DecimalFormat("#.##");
 		if (this.getSaldo() < valor + valorSaque) {
 			System.out.println("Saldo indisponivel!");
 			return false;
 		} else {
 			executaOperacao("sacar");
 			double novoSaldo = this.getSaldo() - valor - valorSaque;
-			System.out.println("Valor debitado da sua conta: " + (valor + valorSaque));
+			System.out.format("Valor debitado da sua conta: %.2f", (valor + valorSaque));
 			this.setSaldo(novoSaldo);
-			System.out.println("Saldo disponivel: " + this.getSaldo());
+			System.out.format("Saldo disponivel: %.2f", this.getSaldo());
 			return true;
 		}
 	}
