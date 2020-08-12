@@ -1,5 +1,7 @@
 package br.com.serratec.javaFinal.contaBancaria;
 
+import br.com.serratec.javaFinal.exceptions.DepositoNegativoException;
+
 public class ContaCorrente extends Conta implements Tributos {
 
 	public ContaCorrente() {
@@ -37,11 +39,15 @@ public class ContaCorrente extends Conta implements Tributos {
 	}
 
 	@Override
-	public void depositar(double valor) {
-		System.out.println("Valor depositado: " + valor);
-		System.out.format("Novo saldo: %.2f",(this.getSaldo() + valor - valorDeposito));
-		executaOperacao("depositar");
-		this.setSaldo(this.getSaldo() + valor - valorDeposito);
+	public void depositar(double valor) throws DepositoNegativoException {
+		if (valor < 0) {
+			throw new DepositoNegativoException();
+		} else {
+			System.out.println("Valor depositado: " + valor);
+			System.out.format("Novo saldo: %.2f", (this.getSaldo() + valor - valorDeposito));
+			executaOperacao("depositar");
+			this.setSaldo(this.getSaldo() + valor - valorDeposito);
+		}
 	}
 
 	@Override

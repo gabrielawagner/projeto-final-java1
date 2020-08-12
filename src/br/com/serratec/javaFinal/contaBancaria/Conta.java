@@ -1,5 +1,7 @@
 package br.com.serratec.javaFinal.contaBancaria;
 
+import br.com.serratec.javaFinal.exceptions.DepositoNegativoException;
+
 public abstract class Conta {
 
 	private String agencia;
@@ -23,11 +25,11 @@ public abstract class Conta {
 		this.tipo = tipo;
 	}
 
-	public abstract boolean sacar(double valor);
+	public abstract boolean sacar(double valor) ;
 
 	public abstract boolean transfere(Conta destino, double valor);
 
-	public abstract void depositar(double valor);
+	public abstract void depositar(double valor) throws DepositoNegativoException;
 
 	public abstract void depositarDeTransferencia(double valor);
 

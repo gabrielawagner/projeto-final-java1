@@ -160,9 +160,7 @@ public class ArquivoUtils {
 		Date data = new Date();
 
 		path += "TRANSFERENCIA_" + formataData.format(data) + usuario.getNome() + ".bancoBeta";
-
 		BufferedWriter buffWrite = new BufferedWriter(new FileWriter(path));
-
 		String linha = "******************************************************************************************************";
 		buffWrite.append(linha + "\n");
 		linha = Utils.centraliza() + "COMPROVANTE DE TRANSFERÊNCIA DE CONTA " + conta.getTipoConta() + " PARA CONTA "
@@ -236,7 +234,7 @@ public class ArquivoUtils {
 		buffWrite.close();
 	}
 
-	public static void RelatorioPoupanca(String path, Usuario usuario, Conta conta, double valor, int dias)
+	public static void relatorioRendimento(String path, Usuario usuario, Conta conta, double valor, int dias)
 			throws IOException {
 		SimpleDateFormat formataData = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss_");
 		Date data = new Date();
@@ -247,11 +245,11 @@ public class ArquivoUtils {
 
 		DecimalFormat df = new DecimalFormat("#.##");
 
-		String linha = "******************************************************************************************************";
+		String linha = "*************************************************";
 		buffWrite.append(linha + "\n");
-		linha = Utils.centraliza() + "OLÁ" + usuario.getNome() + "este é o seu relatorio de rendimento: ".toUpperCase();
+		linha = Utils.centraliza() + "OLÁ " + usuario.getNome().toUpperCase() + " este é o seu relatório de rendimento: ".toUpperCase();
 		buffWrite.append(linha + "\n");
-		linha = Utils.centraliza() + "SIMILADOR POUPANÇA: ";
+		linha = Utils.centraliza() + "SIMULADOR POUPANÇA: ";
 		buffWrite.append(linha + "\n");
 		linha = Utils.centraliza() + "VALOR SIMULADO: " + (valor);
 		buffWrite.append(linha + "\n");
@@ -260,12 +258,12 @@ public class ArquivoUtils {
 		linha = Utils.centraliza() + "RENDIMENTO: "
 				+ df.format((Math.pow((1 + ((ContaPoupanca) conta).getRendimento()), dias) * valor));
 		buffWrite.append(linha + "\n");
-		linha = "******************************************************************************************************";
+		linha = "*************************************************";
 		buffWrite.append(linha + "\n");
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		linha = Utils.centraliza() + "TRANSFERÊNCIA EFETUADA EM " + sdf.format(data);
 		buffWrite.append(linha + "\n");
-		linha = "******************************************************************************************************";
+		linha = "*************************************************";
 		buffWrite.append(linha + "\n");
 		buffWrite.close();
 	}
@@ -283,13 +281,13 @@ public class ArquivoUtils {
 
 		String linha = "****************************************************";
 		buffWrite.append(linha + "\n");
-		linha = Utils.centraliza() + "RELATORIO DO GERENTE: \n";
+		linha = Utils.centraliza() + "RELATÓRIO DO GERENTE: \n";
 		buffWrite.append(linha + "\n");
 		for (Conta conta : aux) {
 			linha = Utils.centraliza() + "CPF: " + conta.getCpfTitular() + " NÚMERO DA CONTA: " + conta.getNumero();
 			buffWrite.append(linha + "\n");
 		}
-		linha = Utils.centraliza() + "\nO GERENTE " + usuario.getNome().toUpperCase() + " GERENCIA UM TOTAL DE " + total
+		linha = Utils.centraliza() + "\nO GERENTE " + usuario.getNome().toUpperCase() + " GERÊNCIA UM TOTAL DE " + total
 				+ " CONTAS.";
 		buffWrite.append(linha + "\n");
 
@@ -303,7 +301,7 @@ public class ArquivoUtils {
 		SimpleDateFormat formataData = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss_");
 		Date data = new Date();
 
-		path += "relatorioDiretor".toUpperCase() + formataData.format(data) + usuario.getNome() + ".bancoBeta";
+		path += "relatorioDiretor_".toUpperCase() + formataData.format(data) + usuario.getNome() + ".bancoBeta";
 
 		BufferedWriter buffWrite = new BufferedWriter(new FileWriter(path));
 
@@ -311,7 +309,7 @@ public class ArquivoUtils {
 
 		String linha = "******************************************************************************************************";
 		buffWrite.append(linha + "\n");
-		linha = Utils.centraliza() + "RELATORIO DO GERENTE: \n";
+		linha = Utils.centraliza() + "RELATÓRIO DO GERENTE: \n";
 		buffWrite.append(linha + "\n");
 
 		for (Usuario u : usuarios) {
@@ -328,5 +326,27 @@ public class ArquivoUtils {
 		buffWrite.close();
 
 	}
+	
+	public static void relatorioPresidente(String path, double capitalTotal, Usuario usuario) throws IOException {
 
+		SimpleDateFormat formataData = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss_");
+		Date data = new Date();
+
+		path += "relatoriopresidente_".toUpperCase() + formataData.format(data) + usuario.getNome() + ".bancoBeta";
+
+		BufferedWriter buffWrite = new BufferedWriter(new FileWriter(path));
+
+		DecimalFormat df = new DecimalFormat("#.##");
+
+		String linha = "*************************************************";
+		buffWrite.append(linha + "\n");
+		linha = Utils.centraliza() + "RELATÓRIO DO CAPITAL ARMAZENADO: \n";
+		buffWrite.append(linha + "\n");
+		linha = Utils.centraliza() + "CAPITAL ARMAZENADO NO BANCO:"+ capitalTotal + "\n";
+		buffWrite.append(linha + "\n");
+		linha = "*************************************************";
+		buffWrite.append(linha + "\n");
+		buffWrite.close();
+
+	}
 }

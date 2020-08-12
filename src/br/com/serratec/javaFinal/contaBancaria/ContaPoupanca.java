@@ -1,11 +1,11 @@
 package br.com.serratec.javaFinal.contaBancaria;
 
-import java.text.DecimalFormat;
+import br.com.serratec.javaFinal.exceptions.DepositoNegativoException;
 
-public class ContaPoupanca extends Conta implements Tributos{
-	
+public class ContaPoupanca extends Conta implements Tributos {
+
 	private final double rendimento = 0.0016;
-		
+
 	public ContaPoupanca() {
 		super();
 	}
@@ -13,14 +13,14 @@ public class ContaPoupanca extends Conta implements Tributos{
 	public ContaPoupanca(String agencia, String numero, String cpfTitular, double saldo, String tipo) {
 		super(agencia, numero, cpfTitular, saldo, tipo);
 	}
-	
+
 	public double getRendimento() {
 		return rendimento;
 	}
 
 	@Override
 	public boolean sacar(double valor) {
-		//DecimalFormat df = new DecimalFormat("#.##");
+		// DecimalFormat df = new DecimalFormat("#.##");
 		if (this.getSaldo() < valor + valorSaque) {
 			System.out.println("Saldo indisponivel!");
 			return false;
@@ -47,10 +47,14 @@ public class ContaPoupanca extends Conta implements Tributos{
 
 	@Override
 	public void depositar(double valor) {
-		System.out.println("Valor depositado: " + valor);
-		System.out.format("Novo saldo: %.2f", (this.getSaldo() + valor - valorDeposito));
-		executaOperacao("depositar");
-		this.setSaldo(this.getSaldo() + valor - valorDeposito);
+		if (valor < 0) {
+			throw new DepositoNegativoException();
+		} else {
+			System.out.println("Valor depositado: " + valor);
+			System.out.format("Novo saldo: %.2f", (this.getSaldo() + valor - valorDeposito));
+			executaOperacao("depositar");
+			this.setSaldo(this.getSaldo() + valor - valorDeposito);
+		}
 	}
 
 	@Override
@@ -66,9 +70,9 @@ public class ContaPoupanca extends Conta implements Tributos{
 			double novoSaldo = this.getSaldo() - valor;
 			System.out.println("Valor debitado da sua conta: " + (valor));
 			this.setSaldo(novoSaldo);
-			System.out.format("Saldo disponivel: %.2f", this.getSaldo());
+			System.out.format("\nSaldo disponivel: %.2f", this.getSaldo());
 			return true;
 		}
 	}
-	
+
 }
