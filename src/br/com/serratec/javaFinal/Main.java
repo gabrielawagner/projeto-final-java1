@@ -27,14 +27,14 @@ public class Main {
 			Scanner input = new Scanner(System.in);
 			ArquivoUtils la = new ArquivoUtils();
 			System.out.println("\r\n" +
-	                Utils.centraliza() + "----------------------------------------------------------------------------\r\n" +
-	                Utils.centraliza() + "██████╗░░█████╗░███╗░░██╗░█████╗░░█████╗░  ██████╗░███████╗████████╗░█████╗░\r\n" +
-	                Utils.centraliza() + "██╔══██╗██╔══██╗████╗░██║██╔══██╗██╔══██╗  ██╔══██╗██╔════╝╚══██╔══╝██╔══██╗\r\n" +
-	                Utils.centraliza() + "██████╦╝███████║██╔██╗██║██║░░╚═╝██║░░██║  ██████╦╝█████╗░░░░░██║░░░███████║\r\n" +
-	                Utils.centraliza() + "██╔══██╗██╔══██║██║╚████║██║░░██╗██║░░██║  ██╔══██╗██╔══╝░░░░░██║░░░██╔══██║\r\n" +
-	                Utils.centraliza() + "██████╦╝██║░░██║██║░╚███║╚█████╔╝╚█████╔╝  ██████╦╝███████╗░░░██║░░░██║░░██║\r\n" +
-	                Utils.centraliza() + "╚═════╝░╚═╝░░╚═╝╚═╝░░╚══╝░╚════╝░░╚════╝░  ╚═════╝░╚══════╝░░░╚═╝░░░╚═╝░░╚═╝\r\n" +
-	                Utils.centraliza() + "----------------------------------------------------------------------------");
+                    Utils.centraliza() + "----------------------------------------------------------------------------\r\n" +
+                    Utils.centraliza() + "██████╗░░█████╗░███╗░░██╗░█████╗░░█████╗░  ██████╗░███████╗████████╗░█████╗░\r\n" +
+                    Utils.centraliza() + "██╔══██╗██╔══██╗████╗░██║██╔══██╗██╔══██╗  ██╔══██╗██╔════╝╚══██╔══╝██╔══██╗\r\n" +
+                    Utils.centraliza() + "██████╦╝███████║██╔██╗██║██║░░╚═╝██║░░██║  ██████╦╝█████╗░░░░░██║░░░███████║\r\n" +
+                    Utils.centraliza() + "██╔══██╗██╔══██║██║╚████║██║░░██╗██║░░██║  ██╔══██╗██╔══╝░░░░░██║░░░██╔══██║\r\n" +
+                    Utils.centraliza() + "██████╦╝██║░░██║██║░╚███║╚█████╔╝╚█████╔╝  ██████╦╝███████╗░░░██║░░░██║░░██║\r\n" +
+                    Utils.centraliza() + "╚═════╝░╚═╝░░╚═╝╚═╝░░╚══╝░╚════╝░░╚════╝░  ╚═════╝░╚══════╝░░░╚═╝░░░╚═╝░░╚═╝\r\n" +
+                    Utils.centraliza() + "----------------------------------------------------------------------------");
 
 			System.out.print(Utils.centraliza() + "CPF: ");
 			String cpf = input.nextLine();
@@ -44,7 +44,7 @@ public class Main {
 
 			ArrayList<Usuario> usuarios = new ArrayList<>();
 			ArrayList<Conta> contas = new ArrayList<>();
-
+			
 			la.populaArrays(usuarios, contas);
 			Menu menu = new Menu();
 
@@ -62,7 +62,7 @@ public class Main {
 			
 			if(tentativaLogin == 2) {
 				input.close();
-				throw new UsuarioNaoCadastradoException("usuario não encontrado entre em contato com o administrador!".toUpperCase());
+				throw new UsuarioNaoCadastradoException("usuario nÃ£o encontrado entre em contato com o administrador!".toUpperCase());
 			}
 			System.out.println(Utils.centraliza() + "CPF OU SENHA INCORRETOS, TENTE NOVAMENTE.");
 		}
