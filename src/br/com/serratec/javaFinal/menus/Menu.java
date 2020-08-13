@@ -309,7 +309,7 @@ public class Menu {
 			System.out.print("INFORME A QUANTIDADE DE DIAS PARA A SIMULAÇÃO: ");
 			int dias = input.nextInt();
 			LimpaTela.limpaConsole();// TODO java.lang.ClassCastException:
-			System.out.format("O RENDIMENTO DE " + valor + " REAIS POR " + dias + " DIAS SERÁ DE: %.2f REAIS.",
+			System.out.format("\nO RENDIMENTO DE " + valor + " REAIS POR " + dias + " DIAS SERÁ DE: %.2f REAIS.",
 					(Math.pow((1 + ((ContaPoupanca) conta).getRendimento()), dias) * valor));
 			ArquivoUtils.relatorioRendimento("./", usuario, conta, valor, dias);
 			continuar(usuario, conta, usuarios, contas);

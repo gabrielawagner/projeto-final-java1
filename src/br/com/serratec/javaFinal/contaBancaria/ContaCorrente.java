@@ -15,14 +15,14 @@ public class ContaCorrente extends Conta implements Tributos {
 	@Override
 	public boolean sacar(double valor) {
 		if (this.getSaldo() < valor + valorSaque) {
-			System.out.println("Saldo indisponivel!");
+			System.out.println("SALDO INDISPONÍVEL!");
 			return false;
 		} else {
 			executaOperacao("sacar");
 			double novoSaldo = this.getSaldo() - valor - valorSaque;
-			System.out.println("Valor debitado da sua conta: " + (valor + valorSaque));
+			System.out.println("VALOR DEBITADO DA SUA CONTA: " + (valor + valorSaque));
 			this.setSaldo(novoSaldo);
-			System.out.format("Saldo disponivel: %.2f", this.getSaldo());
+			System.out.format("SALDO DISPONÍVEL: %.2f", this.getSaldo());
 			return true;
 		}
 	}
@@ -43,8 +43,8 @@ public class ContaCorrente extends Conta implements Tributos {
 		if (valor < 0) {
 			throw new DepositoNegativoException();
 		} else {
-			System.out.println("Valor depositado: " + valor);
-			System.out.format("Novo saldo: %.2f", (this.getSaldo() + valor - valorDeposito));
+			System.out.println("VALOR DEPOSITADO: " + valor);
+			System.out.format("NOVO SALDO: %.2f", (this.getSaldo() + valor - valorDeposito));
 			executaOperacao("depositar");
 			this.setSaldo(this.getSaldo() + valor - valorDeposito);
 		}
@@ -57,13 +57,13 @@ public class ContaCorrente extends Conta implements Tributos {
 
 	public boolean sacarTransferencia(double valor) {
 		if (this.getSaldo() < valor) {
-			System.out.println("Saldo indisponivel!");
+			System.out.println("SALDO INDISPONÍVEL!");
 			return false;
 		} else {
 			double novoSaldo = this.getSaldo() - valor;
-			System.out.println("Valor debitado da sua conta: " + (valor));
+			System.out.println("VALOR DEBITADO DA SUA CONTA: " + (valor));
 			this.setSaldo(novoSaldo);
-			System.out.format("Saldo disponivel: %.2f", this.getSaldo());
+			System.out.format("\nSALDO DISPONÍVEL: %.2f", this.getSaldo());
 			return true;
 		}
 	}

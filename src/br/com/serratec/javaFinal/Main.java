@@ -16,6 +16,11 @@ import br.com.serratec.javaFinal.utils.Utils;
  * */
 
 public class Main {
+	private static Object usuarios;
+	private static Object contas;
+	private static Object usuario;
+	private static Object conta;
+
 	public static void main(String[] args) throws IOException {
 		// LerArquivo.escritor("./teste.txt");
 		login();
@@ -25,7 +30,7 @@ public class Main {
 		LimpaTela.limpaConsole();
 		Scanner input = new Scanner(System.in);
 		ArquivoUtils la = new ArquivoUtils();
-		
+		do {
 		System.out.println("\r\n" +
                 Utils.centraliza() + "----------------------------------------------------------------------------\r\n" +
                 Utils.centraliza() + "██████╗░░█████╗░███╗░░██╗░█████╗░░█████╗░  ██████╗░███████╗████████╗░█████╗░\r\n" +
@@ -36,9 +41,9 @@ public class Main {
                 Utils.centraliza() + "╚═════╝░╚═╝░░╚═╝╚═╝░░╚══╝░╚════╝░░╚════╝░  ╚═════╝░╚══════╝░░░╚═╝░░░╚═╝░░╚═╝\r\n" +
                 Utils.centraliza() + "----------------------------------------------------------------------------");
 		
-		System.out.print(Utils.centraliza() + "Cpf: ");
+		System.out.print(Utils.centraliza() + "CPF: ");
 		String cpf = input.nextLine();
-		System.out.print(Utils.centraliza() + "Senha: ");
+		System.out.print(Utils.centraliza() + "SENHA: ");
 		String senha = input.nextLine();
 		LimpaTela.limpaConsole();
 		
@@ -52,11 +57,15 @@ public class Main {
 			if (usuario.getCpf().equals(cpf) && usuario.getSenha().equals(senha)) {
 				for (Conta conta : contas) {
 					if (conta.getCpfTitular().equals(usuario.getCpf())) {//TODO lanÃ§ar Exception Usuario Not Found
-						System.out.println("Bem vindo, "+ usuario.getNome() + ".");
+						System.out.println("BEM VINDO(A), "+ usuario.getNome().toUpperCase() + ".");
 						menu.principal(usuario, conta, usuarios, contas);
 					}
 				}
 			}
 		}
+		if (usuario == null && conta == null) {
+			System.out.println(Utils.centraliza()+"CPF OU SENHA INCORRETOS, TENTE NOVAMENTE:");
+		}
+		}while (usuarios == null && contas == null);
 	}
 }
