@@ -3,7 +3,7 @@ package br.com.serratec.javaFinal.exceptions;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 
-public class DepositoNegativoException extends RuntimeException {
+public class MovimentacaoNegativoException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 
 	@Override
@@ -60,6 +60,4 @@ public class DepositoNegativoException extends RuntimeException {
 	public void setStackTrace(StackTraceElement[] stackTrace) {
 		super.setStackTrace(stackTrace);
 	}
-
-	
 }

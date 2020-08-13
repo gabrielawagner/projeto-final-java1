@@ -1,6 +1,6 @@
 package br.com.serratec.javaFinal.contaBancaria;
 
-import br.com.serratec.javaFinal.exceptions.DepositoNegativoException;
+import br.com.serratec.javaFinal.exceptions.MovimentacaoNegativoException;
 
 public class ContaCorrente extends Conta implements Tributos {
 
@@ -13,35 +13,43 @@ public class ContaCorrente extends Conta implements Tributos {
 	}
 
 	@Override
-	public boolean sacar(double valor) {
-		if (this.getSaldo() < valor + valorSaque) {
-			System.out.println("SALDO INDISPONÍVEL!");
-			return false;
-		} else {
-			executaOperacao("sacar");
-			double novoSaldo = this.getSaldo() - valor - valorSaque;
-			System.out.println("VALOR DEBITADO DA SUA CONTA: " + (valor + valorSaque));
-			this.setSaldo(novoSaldo);
-			System.out.format("SALDO DISPONÍVEL: %.2f", this.getSaldo());
-			return true;
-		}
-	}
-
-	@Override
-	public boolean transfere(Conta destino, double valor) {
-		if (this.sacarTransferencia(valor + valorTransferencia)) {
-			executaOperacao("transfere");
-			destino.depositarDeTransferencia(valor);
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	@Override
-	public void depositar(double valor) throws DepositoNegativoException {
+	public boolean sacar(double valor) throws MovimentacaoNegativoException {
 		if (valor < 0) {
-			throw new DepositoNegativoException();
+			throw new MovimentacaoNegativoException();
+		} else {
+			if (this.getSaldo() < valor + valorSaque) {
+				System.out.println("SALDO INDISPONÍVEL!");
+				return false;
+			} else {
+				executaOperacao("sacar");
+				double novoSaldo = this.getSaldo() - valor - valorSaque;
+				System.out.println("VALOR DEBITADO DA SUA CONTA: " + (valor + valorSaque));
+				this.setSaldo(novoSaldo);
+				System.out.format("SALDO DISPONÍVEL: %.2f", this.getSaldo());
+				return true;
+			}
+		}
+	}
+
+	@Override
+	public boolean transfere(Conta destino, double valor) throws MovimentacaoNegativoException {
+		if (valor < 0) {
+			throw new MovimentacaoNegativoException();
+		} else {
+			if (this.sacarTransferencia(valor + valorTransferencia)) {
+				executaOperacao("transfere");
+				destino.depositarDeTransferencia(valor);
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}
+
+	@Override
+	public void depositar(double valor) throws MovimentacaoNegativoException {
+		if (valor < 0) {
+			throw new MovimentacaoNegativoException();
 		} else {
 			System.out.println("VALOR DEPOSITADO: " + valor);
 			System.out.format("NOVO SALDO: %.2f", (this.getSaldo() + valor - valorDeposito));

@@ -12,7 +12,7 @@ import br.com.serratec.javaFinal.contaBancaria.ContaPoupanca;
 import br.com.serratec.javaFinal.contaBancaria.SeguroVida;
 import br.com.serratec.javaFinal.contaBancaria.Tributos;
 import br.com.serratec.javaFinal.enums.EnumUsuarios;
-import br.com.serratec.javaFinal.exceptions.DepositoNegativoException;
+import br.com.serratec.javaFinal.exceptions.MovimentacaoNegativoException;
 import br.com.serratec.javaFinal.usuarios.Usuario;
 import br.com.serratec.javaFinal.utils.ArquivoUtils;
 import br.com.serratec.javaFinal.utils.LimpaTela;
@@ -204,6 +204,7 @@ public class Menu {
 			LimpaTela.limpaConsole();
 			switch (resposta2) {
 			case 1:
+				try {
 				System.out.println(Utils.centraliza() + "SAQUE");
 				System.out.println("INFORME O VALOR QUE DESEJA SACAR: ");
 				double valorSaque = input.nextDouble();
@@ -212,8 +213,14 @@ public class Menu {
 				conta.sacar(valorSaque); 
 				continuar(usuario, conta, usuarios, contas);
 				LimpaTela.limpaConsole();
+				}catch (MovimentacaoNegativoException m) {
+					System.out.println("VALOR NÃO PODE SER NEGATIVO!");
+					movimentacoes(usuario, conta, usuarios, contas);
+				}
 				break;
+				
 			case 2:
+				try {
 				System.out.println(Utils.centraliza() + "DEPÓSITO");
 				System.out.println("INFORME O VALOR QUE DESEJA DEPOSITAR: ");
 				double valorDeposito = input.nextDouble();
@@ -221,7 +228,7 @@ public class Menu {
 				LimpaTela.limpaConsole();
 				try {
 					conta.depositar(valorDeposito);
-				} catch (DepositoNegativoException e) {
+				} catch (MovimentacaoNegativoException e) {
 					while (valorDeposito <= 0) {
 						System.out.println("SOMENTE VALORES POSITIVOS.");
 						valorDeposito = input.nextDouble();
@@ -230,11 +237,15 @@ public class Menu {
 				}
 				continuar(usuario, conta, usuarios, contas);
 				LimpaTela.limpaConsole();
+				}catch (MovimentacaoNegativoException m) {
+					System.out.println("VALOR NÃO PODE SER NEGATIVO!");
+					movimentacoes(usuario, conta, usuarios, contas);
+				}
 				break;
 			case 3:
+				try {
 				System.out.println(Utils.centraliza() + "TRANSFERÊNCIA");
 				System.out.println("INFORME O VALOR QUE DESEJA TRANSFERIR:");
-
 				double valorTransferencia = input.nextDouble();
 				LimpaTela.limpaConsole();
 				System.out.println("NÚMERO DA CONTA: ");
@@ -245,6 +256,10 @@ public class Menu {
 				conta.transfere(destino, valorTransferencia);
 				continuar(usuario, conta, usuarios, contas);
 				LimpaTela.limpaConsole();
+				}catch (MovimentacaoNegativoException m) {
+					System.out.println("VALOR NÃO PODE SER NEGATIVO!");
+					movimentacoes(usuario, conta, usuarios, contas);
+				}
 				break;
 			case 4:
 				cliente(usuario, conta, usuarios, contas);
