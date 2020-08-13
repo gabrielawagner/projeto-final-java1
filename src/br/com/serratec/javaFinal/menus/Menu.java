@@ -92,7 +92,7 @@ public class Menu {
 	}
 
 	private void gerente(Usuario usuario, Conta conta, List<Usuario> usuarios, List<Conta> contas) throws IOException {
-		System.out.println("INFORME O TIPO DE ACESSO \n\n[1]CLIENTE [2]GERENTE");// TODO resolver recursividade
+		System.out.println("INFORME O TIPO DE ACESSO \n\n[1]CLIENTE [2]GERENTE");
 		int opcao = input.nextInt();
 		try {
 			if (opcao == 1) {
@@ -209,7 +209,7 @@ public class Menu {
 				double valorSaque = input.nextDouble();
 				ArquivoUtils.saque("./", usuario, conta, valorSaque);
 				LimpaTela.limpaConsole();
-				conta.sacar(valorSaque); // TODO DE ERRO
+				conta.sacar(valorSaque);
 				continuar(usuario, conta, usuarios, contas);
 				LimpaTela.limpaConsole();
 				break;
@@ -240,8 +240,7 @@ public class Menu {
 				System.out.println("NÚMERO DA CONTA: ");
 				input.nextLine();
 				String numeroContaDestino = input.nextLine();
-				Conta destino = buscaContaDestino(numeroContaDestino, contas);// TODO Implementar
-																				// contaNaoEXisteException
+				Conta destino = buscaContaDestino(numeroContaDestino, contas);
 				ArquivoUtils.transferencia("./", usuario, conta, destino, valorTransferencia);
 				conta.transfere(destino, valorTransferencia);
 				continuar(usuario, conta, usuarios, contas);
@@ -301,14 +300,13 @@ public class Menu {
 			relatorios(usuario, conta, usuarios, contas);
 			break;
 		case 3:
-			// TODO Metodo de calcular apartir da data inserida
 			LimpaTela.limpaConsole();
 			System.out.println("SIMULADOR DO RENDIMENTO DA POUPANÇA\n");
 			System.out.print("INFORME O VALOR QUE DESEJA SIMULAR:  ");
 			double valor = input.nextDouble();
 			System.out.print("INFORME A QUANTIDADE DE DIAS PARA A SIMULAÇÃO: ");
 			int dias = input.nextInt();
-			LimpaTela.limpaConsole();// TODO java.lang.ClassCastException:
+			LimpaTela.limpaConsole();
 			System.out.format("\nO RENDIMENTO DE " + valor + " REAIS POR " + dias + " DIAS SERÁ DE: %.2f REAIS.",
 					(Math.pow((1 + ((ContaPoupanca) conta).getRendimento()), dias) * valor));
 			ArquivoUtils.relatorioRendimento("./", usuario, conta, valor, dias);
@@ -326,7 +324,6 @@ public class Menu {
 			cliente(usuario, conta, usuarios, contas);
 			break;
 		case 6:
-		//TODO RESOLVER DEPOIS SEGURO DE VIDA
 			System.exit(0);
 			break;
 		}
