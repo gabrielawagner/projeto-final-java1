@@ -35,7 +35,7 @@ public class Main {
                     Utils.centraliza() + "██████╦╝██║░░██║██║░╚███║╚█████╔╝╚█████╔╝  ██████╦╝███████╗░░░██║░░░██║░░██║\r\n" +
                     Utils.centraliza() + "╚═════╝░╚═╝░░╚═╝╚═╝░░╚══╝░╚════╝░░╚════╝░  ╚═════╝░╚══════╝░░░╚═╝░░░╚═╝░░╚═╝\r\n" +
                     Utils.centraliza() + "----------------------------------------------------------------------------");
-
+			
 			System.out.print(Utils.centraliza() + "CPF: ");
 			String cpf = input.nextLine();
 			System.out.print(Utils.centraliza() + "SENHA: ");
@@ -62,7 +62,7 @@ public class Main {
 			
 			if(tentativaLogin == 2) {
 				input.close();
-				throw new UsuarioNaoCadastradoException("usuario nÃ£o encontrado entre em contato com o administrador!".toUpperCase());
+				throw new UsuarioNaoCadastradoException("usuario não encontrado entre em contato com o administrador!".toUpperCase());
 			}
 			System.out.println(Utils.centraliza() + "CPF OU SENHA INCORRETOS, TENTE NOVAMENTE.");
 		}

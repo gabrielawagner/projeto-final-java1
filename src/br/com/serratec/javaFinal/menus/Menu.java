@@ -49,6 +49,7 @@ public class Menu {
 		int resposta = 0;
 		try {
 			if (usuario.getTipo().equals(EnumUsuarios.CLIENTE.name())) {
+				System.out.println("INFORME A OPÇÃO DESEJADA");
 				System.out.println("[1]MOVIMENTAÇÕES [2]RELATÓRIOS");
 				resposta = input.nextInt();
 				LimpaTela.limpaConsole();

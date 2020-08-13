@@ -20,16 +20,15 @@ public class ContaPoupanca extends Conta implements Tributos {
 
 	@Override
 	public boolean sacar(double valor) {
-		// DecimalFormat df = new DecimalFormat("#.##");
 		if (this.getSaldo() < valor + valorSaque) {
 			System.out.println("SALDO INDISPONÍVEL!");
 			return false;
 		} else {
 			executaOperacao("sacar");
 			double novoSaldo = this.getSaldo() - valor - valorSaque;
-			System.out.format("VALOR DEBITADO DA SUA CONTA: %.2f", (valor + valorSaque));
+			System.out.println("VALOR DEBITADO DA SUA CONTA: " + (valor + valorSaque));
 			this.setSaldo(novoSaldo);
-			System.out.format("SALDO DISPONÍVEL: %.2f", this.getSaldo());
+			System.out.format("\nSALDO DISPONÍVEL: %.2f", this.getSaldo());
 			return true;
 		}
 	}
@@ -46,12 +45,12 @@ public class ContaPoupanca extends Conta implements Tributos {
 	}
 
 	@Override
-	public void depositar(double valor) {
+	public void depositar(double valor) throws DepositoNegativoException {
 		if (valor < 0) {
 			throw new DepositoNegativoException();
 		} else {
 			System.out.println("VALOR DEPOSITADO: " + valor);
-			System.out.format("NOVO SALDO: %.2f", (this.getSaldo() + valor - valorDeposito));
+			System.out.format("\nNOVO SALDO: %.2f", (this.getSaldo() + valor - valorDeposito));
 			executaOperacao("depositar");
 			this.setSaldo(this.getSaldo() + valor - valorDeposito);
 		}
@@ -68,7 +67,7 @@ public class ContaPoupanca extends Conta implements Tributos {
 			return false;
 		} else {
 			double novoSaldo = this.getSaldo() - valor;
-			System.out.println("VALOR DEBITADO DA SUA CONTA: " + (valor));
+			System.out.println("\nVALOR DEBITADO DA SUA CONTA: " + (valor));
 			this.setSaldo(novoSaldo);
 			System.out.format("\nSALDO DISPONÍVEL: %.2f", this.getSaldo());
 			return true;
