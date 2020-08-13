@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 import br.com.serratec.javaFinal.contaBancaria.Conta;
 import br.com.serratec.javaFinal.contaBancaria.ContaPoupanca;
+import br.com.serratec.javaFinal.contaBancaria.SeguroVida;
 import br.com.serratec.javaFinal.contaBancaria.Tributos;
 import br.com.serratec.javaFinal.enums.EnumUsuarios;
 import br.com.serratec.javaFinal.exceptions.DepositoNegativoException;
@@ -269,7 +270,7 @@ public class Menu {
 	public void relatorios(Usuario usuario, Conta conta, List<Usuario> usuarios, List<Conta> contas)
 			throws IOException {
 		System.out.println(
-				"[1]-SALDO [2]-TRIBUTAÇÃO DA CONTA CORRENTE [3]-SIMULADOR DE RENDIMENTO DA POUPANÇA [4]-VOLTAR [5]-FINALIZAR");
+				"[1]-SALDO [2]-TRIBUTAÇÃO DA CONTA CORRENTE [3]-SIMULADOR DE RENDIMENTO DA POUPANÇA [4]-SEGURO DE VIDA [5]-VOLTAR [6]-FINALIZAR");
 		int resposta2 = input.nextInt();
 		switch (resposta2) {
 		case 1:
@@ -316,16 +317,18 @@ public class Menu {
 			relatorios(usuario, conta, usuarios, contas);
 			break;
 		case 4:
-			cliente(usuario, conta, usuarios, contas);
+			SeguroVida s = new SeguroVida();
+			resposta2 = s.contrataSeguro(usuario, conta, usuarios, contas);
+			continuar(usuario, conta, usuarios, contas);
+			LimpaTela.limpaConsole();
 			break;
 		case 5:
+			cliente(usuario, conta, usuarios, contas);
+			break;
+		case 6:
+		//TODO RESOLVER DEPOIS SEGURO DE VIDA
 			System.exit(0);
 			break;
-//		case 4:
-//			//TODO RESOLVER DEPOIS SEGURO DE VIDA
-//			SeguroVida s = new SeguroVida();
-//			resposta2 = s.contrataSeguro(usuario, conta);
-//			break;
 		}
 	}
 }
