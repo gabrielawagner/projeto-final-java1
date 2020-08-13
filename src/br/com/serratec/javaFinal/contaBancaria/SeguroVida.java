@@ -18,6 +18,7 @@ public class SeguroVida {
 		while(valorSeguro > conta.getSaldo() || valorSeguro < 0) {
 			System.out.println("Valor Invalido, Insira um valor que você possua em conta");
 			valorSeguro = input.nextDouble();
+			input.close();
 		}
 		cliente.setTemSeguro(true);
 		conta.setSaldo(conta.getSaldo() - valorSeguro*Tributos.seguroTributo);

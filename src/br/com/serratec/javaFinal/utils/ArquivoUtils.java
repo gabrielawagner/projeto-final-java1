@@ -277,8 +277,6 @@ public class ArquivoUtils {
 
 		BufferedWriter buffWrite = new BufferedWriter(new FileWriter(path));
 
-		DecimalFormat df = new DecimalFormat("#.##");
-
 		String linha = "****************************************************";
 		buffWrite.append(linha + "\n");
 		linha = Utils.centraliza() + "RELATÓRIO DO GERENTE: \n";
@@ -304,8 +302,6 @@ public class ArquivoUtils {
 		path += "relatorioDiretor_".toUpperCase() + formataData.format(data) + usuario.getNome() + ".bancoBeta";
 
 		BufferedWriter buffWrite = new BufferedWriter(new FileWriter(path));
-
-		DecimalFormat df = new DecimalFormat("#.##");
 
 		String linha = "******************************************************************************************************";
 		buffWrite.append(linha + "\n");
@@ -335,8 +331,6 @@ public class ArquivoUtils {
 		path += "relatoriopresidente_".toUpperCase() + formataData.format(data) + usuario.getNome() + ".bancoBeta";
 
 		BufferedWriter buffWrite = new BufferedWriter(new FileWriter(path));
-
-		DecimalFormat df = new DecimalFormat("#.##");
 
 		String linha = "*************************************************";
 		buffWrite.append(linha + "\n");
