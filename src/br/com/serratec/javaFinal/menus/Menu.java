@@ -114,7 +114,7 @@ public class Menu {
 							aux.add(c);
 						}
 					}
-					ArquivoUtils.relatorioGerente("./", aux, total, usuario);
+					ArquivoUtils.relatorioGerente("./relatorioGerente/", aux, total, usuario);
 					System.out.println("\nO GERENTE " + usuario.getNome().toUpperCase() + " GERENCIA UM TOTAL DE "
 							+ total + " CONTAS.");
 				}
@@ -137,7 +137,7 @@ public class Menu {
 			if (opcao == 1) {
 				cliente(usuario, conta, usuarios, contas);
 			} else if (opcao == 2) {
-				System.out.println("[1]RELATÓRIO DOS CLIENTE DO BANCO");
+				System.out.println("[1]RELATÓRIO DOS CLIENTES DO BANCO");
 				opcao = input.nextInt();
 				if (opcao == 1)
 					for (Usuario u : usuarios) {
@@ -146,6 +146,7 @@ public class Menu {
 						System.out.println("AGÊNCIA: " + u.getAgencia());
 						System.out.println();
 					}
+				ArquivoUtils.relatorioDiretor("./relatorioDiretor/", usuarios, usuario);
 				continuar(usuario, conta, usuarios, contas);
 			}
 		} catch (InputMismatchException e) {
@@ -172,7 +173,7 @@ public class Menu {
 					for (Conta c : contas) {
 						capitalTotal += c.getSaldo();
 					}
-				ArquivoUtils.relatorioPresidente("./", capitalTotal, usuario);
+				ArquivoUtils.relatorioPresidente("./relatorioPresidente/", capitalTotal, usuario);
 				System.out.println("CAPITAL ARMAZENADO NO BANCO: " + capitalTotal);
 				continuar(usuario, conta, usuarios, contas);
 			}
@@ -207,7 +208,7 @@ public class Menu {
 				System.out.println(Utils.centraliza() + "SAQUE");
 				System.out.println("INFORME O VALOR QUE DESEJA SACAR: ");
 				double valorSaque = input.nextDouble();
-				ArquivoUtils.saque("./", usuario, conta, valorSaque);
+				ArquivoUtils.saque("./saques/", usuario, conta, valorSaque);
 				LimpaTela.limpaConsole();
 				conta.sacar(valorSaque);
 				continuar(usuario, conta, usuarios, contas);
@@ -217,7 +218,7 @@ public class Menu {
 				System.out.println(Utils.centraliza() + "DEPÓSITO");
 				System.out.println("INFORME O VALOR QUE DESEJA DEPOSITAR: ");
 				double valorDeposito = input.nextDouble();
-				ArquivoUtils.deposita("./", usuario, conta, valorDeposito);
+				ArquivoUtils.deposita("./depositos/", usuario, conta, valorDeposito);
 				LimpaTela.limpaConsole();
 				try {
 					conta.depositar(valorDeposito);
@@ -241,7 +242,7 @@ public class Menu {
 				input.nextLine();
 				String numeroContaDestino = input.nextLine();
 				Conta destino = buscaContaDestino(numeroContaDestino, contas);
-				ArquivoUtils.transferencia("./", usuario, conta, destino, valorTransferencia);
+				ArquivoUtils.transferencia("./transferencias/", usuario, conta, destino, valorTransferencia);
 				conta.transfere(destino, valorTransferencia);
 				continuar(usuario, conta, usuarios, contas);
 				LimpaTela.limpaConsole();
@@ -273,7 +274,7 @@ public class Menu {
 		int resposta2 = input.nextInt();
 		switch (resposta2) {
 		case 1:
-			ArquivoUtils.saldo("./", usuario, conta);
+			ArquivoUtils.saldo("./relatorioSaldo/", usuario, conta);
 			LimpaTela.limpaConsole();
 			System.out.format("SALDO DA CONTA: %.2f", conta.getSaldo());
 			continuar(usuario, conta, usuarios, contas);
@@ -294,7 +295,7 @@ public class Menu {
 			System.out.println("VALOR POR SAQUE: " + Tributos.valorTransferencia);
 			System.out.format("TOTAL DA TRIBUTAÇÃO: %.2f", (tributoDeposito + tributoSaque + tributoTransferencia));
 
-			ArquivoUtils.tributacaoContaCorrente("./", usuario, conta);
+			ArquivoUtils.tributacaoContaCorrente("./relatoriotributacaoContaCorrente/", usuario, conta);
 			continuar(usuario, conta, usuarios, contas);
 			LimpaTela.limpaConsole();
 			relatorios(usuario, conta, usuarios, contas);
@@ -309,7 +310,7 @@ public class Menu {
 			LimpaTela.limpaConsole();
 			System.out.format("\nO RENDIMENTO DE " + valor + " REAIS POR " + dias + " DIAS SERÁ DE: %.2f REAIS.",
 					(Math.pow((1 + ((ContaPoupanca) conta).getRendimento()), dias) * valor));
-			ArquivoUtils.relatorioRendimento("./", usuario, conta, valor, dias);
+			ArquivoUtils.relatorioRendimento("./relatorioRendimento/", usuario, conta, valor, dias);
 			continuar(usuario, conta, usuarios, contas);
 			LimpaTela.limpaConsole();
 			relatorios(usuario, conta, usuarios, contas);
